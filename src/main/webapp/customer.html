@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Customer Page</title>
+<link rel="stylesheet" type="text/css" href="css/Style.css">
+<script src="JS/angular.min.js"></script>
+<script src="jquery/jquery-3.2.1.min.js"></script>
+<script type="text/javaScript" src="js/adminController.js"></script>
+
+<div ng-app="couponSystem"></div>
+
+
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet"	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<script	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+</head>
+<body>
+
+	<header class="header">
+		<h1 style="text-align: center;">Hello, Welcome to Customer control page</h1>
+		<hr />
+	</header>
+	<div style="text-align: center;">
+	<!-- -------------TODO------------- -->
+		<button type="button" id="purchasecoupon" data-toggle="modal" data-target="#myModal1" onclick="purchasecoupon() ">Purchase Coupon</button>
+		<!-- Modal -->
+		<div class="modal fade" id="myModal1" role="dialog">
+			<div class="modal-dialog">
+				<!-- Modal content-->
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal">&times;</button>
+						<br>
+						<form action="webapi/customer/purchaseCoupon" method="post" name="myForm">
+						<h1>Purchase Coupon</h1>
+							<div>
+								<label>Coupon Id</label> 
+								<input type="text" name="couponId" id="couponId" placeholder="Enter Coupon ID:" required="required" />
+							</div>
+							<br>
+								<input type="submit" name="Submit" />
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+		</div>
+		<br> <br>
+			<!-- -------------TODO------------- -->
+				<div style="text-align: center;">
+			<button type="button" id="getallpurchasedcoupons" data-toggle="modal" data-target="#myModal2" onclick="getallpurchasedcoupons() ">
+			Get	All Purchased Coupons</button>
+			<br> <br>
+		</div>
+		
+			<div style="text-align: center;">
+				<button type="button" id="getallpurchasecouponsbytype" data-toggle="modal" data-target="#myModal3"
+						onclick="getallpurchasecouponsbytype() ">Get All Purchase Coupons By Type</button>
+				<!-- Modal -->
+				<div class="modal fade" id="myModal3" role="dialog">
+					<div class="modal-dialog">
+						<!-- Modal content-->
+						<div class="modal-content">
+							<div class="modal-header">
+								<button type="button" class="close" data-dismiss="modal">&times;</button>
+								<br>
+								<form action="webapi/customer/getAllPurchasedCouponsByType" method="post" name="myForm">
+									<div>
+										<label>Choose Coupon type</label>
+										 <select id="couponType" name="couponType" required="required">
+											<option value="FOOD">FOOD</option>
+											<option value="RESTURANS">RESTURANS</option>
+											<option value="ELECTRICITY">ELECTRICITY</option>
+											<option value="HEALTH">HEALTH</option>
+											<option value="SPORTS">SPORTS</option>
+											<option value="CAMPING">CAMPING</option>
+											<option value="TRAVELLING">TRAVELLING</option>
+											<option value="OTHER">OTHER</option>
+										</select>
+									</div>
+									<input type="submit" name="Submit" />
+								</form>
+							</div>
+						</div>
+					</div>
+				</div>
+				<br> <br>
+				</div>
+
+				<div style="text-align: center;">
+					<button type="button" id="getallpurchasecouponsbyprice"
+						data-toggle="modal" data-target="#myModal4"
+						onclick="getallpurchasecouponsbyprice() ">Get All Purchase Coupons By Price</button>
+					<!-- Modal -->
+					<div class="modal fade" id="myModal4" role="dialog">
+						<div class="modal-dialog">
+							<!-- Modal content-->
+							<div class="modal-content">
+								<div class="modal-header">
+									<button type="button" class="close" data-dismiss="modal">&times;</button>
+									<br>
+									<form action="webapi/customer/getAllPurchasedCouponsByPrice" method="post" name="myForm">
+									<h1>Get All Purchase Coupons By Price</h1>
+										<div>
+											<label>Coupon price</label> 
+											<input type="text" name="price" id="price" placeholder="Enter Coupon Max. Price:" required="required" />
+										</div>
+										<input type="submit" name="Submit" />
+									</form>
+								</div>
+							</div>
+						</div>
+					</div>
+					<br> <br>
+				</div>
+</body>
+</html>

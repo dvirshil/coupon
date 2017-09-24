@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Company Page</title>
+<link rel="stylesheet" type="text/css" href="css/Style.css">
+<script src="JS/angular.min.js"></script>
+<script src="jquery/jquery-3.2.1.min.js"></script>
+
+<div ng-app="couponSystem"></div>
+
+
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet"	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<script	src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+<body>
+
+	<header class="header">
+		<h1 style="text-align: center;">Hello, Welcome to company control page</h1>
+		<hr />
+	</header>
+	<div style="text-align: center;">
+		<button type="button" id="CreateCoupon" data-toggle="modal"	data-target="#myModal1" onclick="createCoupon() ">Create Coupon</button>
+		<!-- Modal -->
+		<div class="modal fade" id="myModal1" role="dialog">
+			<div class="modal-dialog">
+				<!-- Modal content-->
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal">&times;</button>
+						<br>
+						<!--      TODO     -->
+						<form action="webpai/company/createCoupon" method="post" name="myForm">
+							<h1>Create New Coupon</h1>
+							<div>
+								<label> Coupon Title</label> 
+								<input type="text" name="title" id="title" placeholder="Enter Coupon Title:" required="required" />
+							</div>
+							<br>
+							<div>
+								<label>Coupon Start Date</label> 
+								<input type="text" name="startDate"	id="startDate" placeholder="Enter Coupon Start Date:" required="required" />
+							</div>
+							<br>
+							<div>
+								<label>Coupon End Date</label> 
+								<input type="text" name="endDate" id="endDate" placeholder="Enter Coupon End Date:" required="required" />
+							</div>
+							<br>
+							<div>
+								<label>Coupon Amount</label> 
+								<input type="number" name="amount" id="amount" placeholder="Enter Coupon Amount:" required="required" />
+							</div>
+							<br>
+							<div>						 
+       						 <label for="type">Choose Your Coupon Type:</label>
+							    <select id="type" name="type">
+							        <option value="FOOD">Food</option>
+									<option value="RESTURANS">Resturans</option>
+									<option value="ELECTRICITY">Electricity</option>
+									<option value="HEALTH">Electricity</option>
+									<option value="SPORTS">Sports</option>
+									<option value="CAMPING">Camping</option>
+									<option value="TRAVELLING">Travelling</option>
+									<option value="OTHER">Other</option>
+							    </select>
+							</div>
+							<br>
+							<div>
+								<label>Coupon Message</label> 
+								<input type="text" name="message" id="message" placeholder="Enter Coupon Message:" required="required" />
+							</div>
+							<br>
+							<div>
+								<label>Coupon Price</label> 
+								<input type="number" name="price" id="price" placeholder="Enter Coupon Price:" required="required" />
+							</div>
+							<br>
+							<div>
+								<label>Coupon Image</label> 
+								<input type="text" name="image" id="image" placeholder="Enter Coupon Image:" required="required" />
+							</div>
+							<br>
+							<input type="submit" name="Submit" />
+						</form>
+
+					</div>
+				</div>
+			</div>
+		</div>
+		<br> <br>
+
+		<button type="button" onclick="removeCoupon()" data-toggle="modal" data-target="#myModal2">Remove Coupon</button>
+		<div class="modal fade" id="myModal2" role="dialog">
+			<div class="modal-dialog">
+				<!-- Modal content-->
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal">&times;</button>
+						<br>
+						<form action="webapi/company/removeCoupon" method="post" name="myForm">
+						<h1>Remove Coupon</h1>
+							<div>
+								<label>Coupon ID</label> 
+								<input type="text" name="couponId" id="couponId" placeholder="Enter Coupon ID:" required="required" />
+							</div>	
+								<br>
+								<input type="submit" name="Submit" />
+								
+						</form>
+
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<br>
+	<br>
+	
+	<button type="button" onclick="updateCoupon()" data-toggle="modal" data-target="#myModal3">Update Coupon</button>
+	<!-- Modal -->
+	<div class="modal fade" id="myModal3" role="dialog">
+		<div class="modal-dialog">
+			<!-- Modal content-->
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+					<br>
+					<form action="webapi/company/updateCoupon" method="post" name="myForm">
+					<h1>Update Coupon</h1>
+						<div>
+							<label>Coupon ID</label> 
+							<input type="text" name="couponId" id="couponId" placeholder="Enter Coupon ID:" required="required" />
+						</div>
+						<br>
+						<div>
+							<label>Coupon Title</label> 
+							<input type="text" name="title" id="title" placeholder="Enter Coupon New Title" required="required" />
+						</div>
+						<br>
+						<div>
+							<label>Coupon Start Date</label> 
+							<input type="text" name="startDate" id="startDate" placeholder="Enter Coupon New Start Date (YYYY-MM-DD):" required="required" />
+						</div>
+						<br>
+						<div>
+							<label>Coupon End Date</label> 
+							<input type="text" name="endDate" id="endDate" placeholder="Enter Coupon New End Date (YYYY-MM-DD):" required="required" />
+						</div>
+						<br>
+						<div>
+							<label>Coupon Amount</label> 
+							<input type="number" name="amount" id="amount" placeholder="Enter Coupon New Amount:" required="required" />
+						</div>
+						<br>
+						<div>
+							 <label for="type">Choose Your Coupon Type:</label>
+							    <select id="type" name="type">
+							        <option value="FOOD">FOOD</option>
+									<option value="RESTURANS">RESTURANS</option>
+									<option value="ELECTRICITY">ELECTRICITY</option>
+									<option value="HEALTH">HEALTH</option>
+									<option value="SPORTS">SPORTS</option>
+									<option value="CAMPING">CAMPING</option>
+									<option value="TRAVELLING">TRAVELLING</option>
+									<option value="OTHER">OTHER</option>
+							    </select>
+						</div>
+						<br>
+						<div>
+							<label>Coupon Message</label> 
+							<input type="text" name="message" id="message" placeholder="Enter Coupon New Message:" required="required" />
+						</div>
+						<br>
+						<div>
+							<label>Price</label> 
+							<input type="number" name="price" id="price" placeholder="Enter Coupon New Price:" required="required" />
+						</div>
+						<br>
+						<div>
+							<label>Coupon Image</label> 
+							<input type="file" name="image" id="image" placeholder="Enter Coupon New Image:" required="required" />
+						</div>
+						<br>
+							<button type="submit" name="Submit">Submit</button>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+	<br>
+	<br>
+<!-- -----------------------TODO---------------- -->	
+	<button type="button" onclick="getCouponById()" data-toggle="modal"	data-target="#myModal4">Get Coupon By ID</button>
+	<!-- Modal -->
+	<div class="modal fade" id="myModal4" role="dialog">
+		<div class="modal-dialog">
+			<!-- Modal content-->
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+					<br>
+					<form action="webapi/company/getCouponById" method="post" name="myForm">
+						<div>
+							<label>Coupon ID</label> 
+							<input type="text" name="couponId" id="couponId" placeholder="Enter Coupon ID:" required="required" />
+						</div>
+						<br>
+							<button type="submit" name="Submit">Submit</button>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+	<br>
+	<br>
+	
+	<button type="button" onclick="getCouponsByType()" data-toggle="modal"vdata-target="#myModal5">Get Coupon By Type</button>
+	<!-- Modal -->
+	<div class="modal fade" id="myModal5" role="dialog">
+		<div class="modal-dialog">
+			<!-- Modal content-->
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+					<br> <label>Choose Coupon type</label>
+					<form action="webapi/company/getCouponsByType" method="post" name="myForm">
+							<div>
+							<label>Company ID</label> 
+							<input type="text" name="companyId" id="companyId" placeholder="Enter Coupon ID:" required="required" />
+						</div>
+					<br>
+						<div>	
+							<select id="Coupontype" name="Coupontype" required="required">
+								<option value="FOOD">FOOD</option>
+								<option value="RESTURANS">RESTURANS</option>
+								<option value="ELECTRICITY">ELECTRICITY</option>
+								<option value="HEALTH">HEALTH</option>
+								<option value="SPORTS">SPORTS</option>
+								<option value="CAMPING">CAMPING</option>
+								<option value="TRAVELLING">TRAVELLING</option>
+								<option value="OTHER">OTHER</option>
+							</select>
+						</div>
+						<div>
+							<br>
+							<button type="submit" name="Submit">Submit</button>
+					</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+	<br>
+	<br>
+	<button type="button" id="gatallcoupons" onclick="gatAllCoupons()"	class="btn btn-info btn-lg">Get All Coupon</button>
+	<br>
+</body>
+</html>

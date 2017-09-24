@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Coupon System LoginS</title>
+		<link rel="stylesheet" type="text/css" href="css/Style.css">
+		<link href='css/bootstrap.css' rel='stylesheet'>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/prefixfree/1.0.7/prefixfree.min.js"></script>
+		<link href='css/main.css' rel='stylesheet'>
+		<link href='JS/index.js' rel='javaScript'>
+</head>
+<body class='container-fluid'>
+	<header class="header">
+		<h1 >Welcome to the Coupons Management System</h1><hr/>
+	</header>
+
+			<div class="login">
+			<div class='row text-center'>
+			<h1>Please fill your name and password:</h1>
+			<form action="webapi/login"  method="post">
+			
+					<label for="name"><h2>Name:</h2></label>
+			    	<input type="text" id="username" name="username" placeholder="Enter Your Name:" required="required" />
+			    	
+			    	<label for="passwors"><h2>Password:</h2></label>
+			        <input type="password" id="password" name="password" placeholder="Enter Your Password:" required="required" />
+			        
+			        <label for="type"><h2>choose your Client Type:</h2></label>
+					    <select id="type" name="type">
+					        <option value="ADMIN">Admin</option>
+							<option value="COMPANY">Company</option>
+							<option value="CUSTOMER">Customer</option>
+					    </select>
+			        <br><br>
+			        <button type="submit" name="submit">Login</button>
+			</form>
+		</div>
+	</div>
+			<script src='https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js'></script>
+			<script src='js/bootstrap.js'></script>
+</body>
+</html>
