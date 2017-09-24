@@ -36,15 +36,15 @@ public class AdminFacade implements CouponClientFacade {
 	}
 	
 	
-	public CouponClientFacade login(String name, String password, ClientType clientType) {
-		 if(clientType!=ClientType.ADMIN){
-			 System.out.println("Please login with an Admin account."); 
+	public CouponClientFacade login(String name, String password, ClientType clientType) throws Exception {
+			if(clientType!=ClientType.ADMIN){
+			 throw new Exception("Please login with an Admin account.");
 		 	}
 			if (!(name.equals("admin"))){
-				System.out.println("Incorrect Username. Please try again.");
+				throw new Exception("Incorrect Username. Please try again.");
 			}
-			if (!(password.equals(1234))){
-				System.out.println("Incorrect Password. Please try again.");
+			if (!(password.equals("1234"))){
+				throw new Exception("Incorrect Password. Please try again.");
 			}
 				
 			return new AdminFacade();	

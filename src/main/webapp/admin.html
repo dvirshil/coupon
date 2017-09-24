@@ -50,13 +50,13 @@
 							<br> 
 							<input type="submit" name="Submit" />
 						</form>
-
 					</div>
 				</div>
 			</div>
 		</div>
 		<br> <br>
-		<button type="button" onclick="removeCompany()" data-toggle="modal"	data-target="#myModal2">Remove Company</button>
+		
+		<button type="button" id="removeCompany" data-toggle="modal" data-target="#myModal2">Remove Company</button>
 		<div class="modal fade" id="myModal2" role="dialog">
 			<div class="modal-dialog">
 				<!-- Modal content-->
@@ -77,10 +77,8 @@
 				</div>
 			</div>
 		</div>
-		</div>
 		<br> <br>
-		<button type="button" onclick="updateCompany()" data-toggle="modal"
-			data-target="#myModal3">Update Company</button>
+		<button type="button" id="updateCompany" data-toggle="modal" data-target="#myModal3">Update Company</button>
 		<!-- Modal -->
 		<div class="modal fade" id="myModal3" role="dialog">
 			<div class="modal-dialog">
@@ -142,7 +140,7 @@
 
 		<br> <br>
 		<!-- -----------------TODO------------------- -->
-		<button type="button" >Get All Companies</button>
+		<button formaction="webapi/admin/getAllCompanies" type="submit" >Get All Companies</button>
 		<br> <br>
 		
 		<button type="button"  data-toggle="modal" data-target="#myModal5">Create Customer</button>
@@ -175,8 +173,7 @@
 
 		<br> <br>
 
-		<button type="button" onclick="removeCustomer()" data-toggle="modal"
-			data-target="#myModal6">Remove Customer</button>
+		<button type="button" onclick="removeCustomer()" data-toggle="modal" data-target="#myModal6">Remove Customer</button>
 		<!-- Modal -->
 		<div class="modal fade" id="myModal6" role="dialog">
 			<div class="modal-dialog">
@@ -200,8 +197,7 @@
 		</div>
 		<br> <br>
 
-		<button type="button" onclick="updateCustomer()" data-toggle="modal"
-			data-target="#myModal7">Update Customer</button>
+		<button type="button" onclick="updateCustomer()" data-toggle="modal" data-target="#myModal7">Update Customer</button>
 		<!-- Modal -->
 		<div class="modal fade" id="myModal7" role="dialog">
 			<div class="modal-dialog">
@@ -234,8 +230,7 @@
 		</div>
 		<br> <br>
 
-		<button type="button" onclick="getCustomer()" data-toggle="modal"
-			data-target="#myModal8">Get Customer</button>
+		<button type="button" onclick="getCustomer()" data-toggle="modal" data-target="#myModal8">Get Customer</button>
 		<!-- Modal -->
 		<div class="modal fade" id="myModal8" role="dialog">
 			<div class="modal-dialog">
@@ -262,6 +257,7 @@
 		<div>
 		<button type="submit" formmethod="get" formaction="webpai/admin/getAllCustomers">Get All Customer</button>
 		<br> <br>
+	</div>
 	</div>
 </body>
 </html>

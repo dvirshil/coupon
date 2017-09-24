@@ -19,6 +19,7 @@ import com.project.Dao.CustomerDAO;
 
 public class CustomerDBDAO implements CustomerDAO {
 	private ConnectionPool pool;
+	Customer customer = new Customer();
 
 	public CustomerDBDAO() {
 		pool = ConnectionPool.getInstance();
@@ -96,20 +97,16 @@ public class CustomerDBDAO implements CustomerDAO {
 	@Override
 	public Customer getCustomer(long id) throws SQLException {
 		Connection con = pool.getConnection();
-		Customer customer=new Customer();
 		try {
 			String query = "SELECT * FROM Customer WHERE id=" + id + ";";
 			Statement st;
 			st = con.createStatement();
 			ResultSet rs = st.executeQuery(query);
 			while (rs.next()) {
-				//long custId=rs.getLong("id");
-				String custName=rs.getString("cust_name");
-				String custPass=rs.getString("password");
 				
 				customer.setId(id);
-				customer.setCust_name(custName);
-				customer.setPassword(custPass);
+				customer.setCust_name(rs.getString("cust_name"));
+				customer.setPassword(rs.getString("password"));
 			}
 
 		} catch (SQLException e) {
@@ -123,19 +120,15 @@ public class CustomerDBDAO implements CustomerDAO {
 	@Override
 	public Customer getCustomerByName(String cust_name) throws Exception {
 		Connection con = pool.getConnection();
-		Customer customer=new Customer();
 		try {
 			String query = "SELECT * FROM Customer WHERE cust_name='" + cust_name + "';";
-			//for debug
-			//System.out.println(query);
 			Statement st;
 			st = con.createStatement();
 			ResultSet rs = st.executeQuery(query);
 			while (rs.next()) {
-				String id = rs.getString("id");
-				String custPass = rs.getString("Password");
-				customer.setId(Long.parseLong(id));
-				customer.setPassword(custPass);
+				Long id = rs.getLong("id");
+				customer.setId(id);
+				customer.setPassword(rs.getString("Password"));
 			}
 
 		} catch (SQLException e) {
@@ -155,15 +148,11 @@ public class CustomerDBDAO implements CustomerDAO {
 			st = con.createStatement();
 			ResultSet rs = st.executeQuery(query);
 			while (rs.next()) {
-				Customer customer = new Customer();
 
 				long custId = rs.getLong("id");
-				String custName = rs.getString("cust_name");
-				String custPass = rs.getString("Password");
-				
 				customer.setId(custId);
-				customer.setCust_name(custName);
-				customer.setPassword(custPass);
+				customer.setCust_name(rs.getString("cust_name"));
+				customer.setPassword(rs.getString("Password"));
 				
 				allCustomers.add(customer);
 			}
@@ -300,19 +289,21 @@ public class CustomerDBDAO implements CustomerDAO {
 			Statement st;
 			st = con.createStatement();
 			ResultSet rs = st.executeQuery(query);
-			while (rs.next()) {
-				String customer_Password = rs.getString("Password");
-				if (customer_Password.equals(password)) {
+			customer.setPassword(rs.getString("password"));
+			while (rs.next()){
+				if (customer.getPassword().equals(password)) {
 					passwordMatchcustName = true;
 				} else {
 					passwordMatchcustName = false;
+					throw new Exception(" customer: faild to log in as:" +custName +" please try again");
 				}
 			}
 		} catch (SQLException e) {
-			throw new Exception("Cannot login custName to BD");
+			throw new Exception("Cannot login custName to BD: "+custName );
 		}
 
 		pool.returnConnection(con);
+		System.out.println(passwordMatchcustName);
 		return passwordMatchcustName;
 	}
 

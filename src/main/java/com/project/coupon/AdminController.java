@@ -33,7 +33,7 @@ public class AdminController {
 	
 	@POST
 	@Path("/createCompany")
-	@Produces(MediaType.TEXT_PLAIN)
+	@Produces(MediaType.APPLICATION_JSON)
 	public String createCompanyTest(@FormParam("companyName") String companyName,
 									@FormParam("companyPassword") String companyPassword,
 									@FormParam("companyEmail") String companyEmail) throws Exception {
@@ -43,13 +43,9 @@ public class AdminController {
 		company.setComp_name(companyName);
 		company.setPassword(companyPassword);
 		company.setEmail(companyEmail);
-
-		try {
 			adminFacade.createCompany(company);
-		} catch (Exception e) {
-			throw new Exception("FAILED ADD A NEW COMPANY: "+companyName);
-		}
-		response.sendRedirect("admin.html");
+		
+		//response.sendRedirect("admin.html");
 		return "create company - admin.html";
 	}
 	
@@ -103,10 +99,7 @@ public class AdminController {
 		} catch (Exception e) {
 			throw new Exception("FAILED GET COMPANY");
 		}
-		System.out.println(company);
-		System.out.println("get company by id - admin.html");
-		
-		//response.sendRedirect("admin.html");
+		response.sendRedirect("admin.html");
 		return company;
 	}
 	

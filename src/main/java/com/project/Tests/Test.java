@@ -46,7 +46,7 @@ public class Test {
 			af.createCompany(company);
 			
 	}
-		private static void loginAdminFacade() {
+		private static void loginAdminFacade() throws Exception {
 			AdminFacade af=new AdminFacade();
 			af.login("admin", "1234", ClientType.ADMIN);
 		

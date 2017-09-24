@@ -164,18 +164,19 @@ public class CompanyDBDAO implements CompanyDAO {
 		Connection con = pool.getConnection();
 		boolean passwordMatchcompName=true;
 		try {
-			String query = "SELECT* FROM Company WHERE  comp_name='compName';";
+			String query = "SELECT* FROM Company WHERE comp_name='"+compName+"';";
 			Statement st;
 			st = con.createStatement();
 			ResultSet rs = st.executeQuery(query);
 			Customer customer = new Customer();
+			customer.setPassword(password);
 			while (rs.next()){
-				customer.setPassword( rs.getString("Password"));
+				customer.setPassword( rs.getString("password"));
 			}
 			passwordMatchcompName= false;
-			if(customer.getPassword()!=password){
+			if(customer.getPassword()==password){
 				passwordMatchcompName= false;
-				
+				throw new Exception("compant: faild to log in as:" +compName +" please try again" );
 			}
 			else{
 				passwordMatchcompName= true;

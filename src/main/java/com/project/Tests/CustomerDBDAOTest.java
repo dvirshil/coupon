@@ -9,11 +9,18 @@ import com.project.Dao.Impl.CustomerDBDAO;
 public class CustomerDBDAOTest {
 
 	public static void main(String[] args) throws Exception {
-		 create();
+		// create();
 		// remove();
 		//update();
 		//allcust();
+		login();
+		
+	}
 
+	private static void login() throws Exception {
+		CustomerDBDAO custDao = new CustomerDBDAO();
+		custDao.login("anya", "123");
+		
 	}
 
 	private static void allcust() throws SQLException {
