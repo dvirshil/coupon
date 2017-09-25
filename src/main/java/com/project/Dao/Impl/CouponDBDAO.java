@@ -8,11 +8,13 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.Date;
 
 import com.project.Beans.Company;
 import com.project.Beans.Coupon;
 import com.project.Beans.CouponType;
+import com.project.Beans.Customer;
 import com.project.Dao.ConnectionPool;
 import com.project.Dao.CouponDAO;
 
@@ -21,6 +23,7 @@ public class CouponDBDAO implements CouponDAO {
 	private ConnectionPool pool;
 	private SimpleDateFormat format = new SimpleDateFormat("yyyy-mm-dd");
 	Coupon coupon = new Coupon();
+	Collection<Customer> customers=new ArrayList<>();
 
 	public CouponDBDAO() {
 
@@ -165,7 +168,7 @@ public class CouponDBDAO implements CouponDAO {
 	public Collection<Coupon> getAllCompanyCoupons(Long comp_id) throws Exception {
 		Connection con = pool.getConnection();
 		ArrayList<Coupon> companyCoupons = new ArrayList<Coupon>();
-		String query = "SELECT * FROM Company_Coupon Join Coupon ON Company_Coupon.COUPON_ID = COUPON.ID WHERE Company_Coupon.COMPANY_ID = " + comp_id + "';";
+		String query = "SELECT * FROM Company_Coupon Join Coupon ON Company_Coupon.COUPON_ID = COUPON.ID WHERE Company_Coupon.COMPANY_ID = '" + comp_id + "';";
 
 		Statement st;
 		st = con.createStatement();
@@ -190,7 +193,9 @@ public class CouponDBDAO implements CouponDAO {
 
 			// adding the object to the Coupons Collection
 			companyCoupons.add(coupon);
+			System.out.println(companyCoupons);
 		}
+		
 		return companyCoupons;
 
 
@@ -441,6 +446,7 @@ public class CouponDBDAO implements CouponDAO {
 	 	pool.returnConnection(con);
 		}
 	}
+	
 
 		
 	}

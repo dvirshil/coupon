@@ -17,26 +17,24 @@ import com.project.Dao.Impl.DataVallidation;
 public class CustomerFacade implements CouponClientFacade {
 	CustomerDAO customerDao;
 	CouponDAO couponDao;
-	Customer customer;
+	Customer customer=new Customer();
 
 	public CustomerFacade() {
 		couponDao = CouponDBDAO.getInstance();
 		customerDao = CustomerDBDAO.getInstance();
-		customer = new Customer();
 
 	}
 
 	public Customer getCustomerName() {
-		return customer;
+		return this.customer;
 	}
 
 	public void purchasceCoupon(Coupon coupon) throws Throwable {
-
+		coupon=couponDao.getCoupon(coupon.getId());
 		DataVallidation vallData = new DataVallidation();
 		if (vallData.couponDateIsVallid(coupon) == true && vallData.couponInStock(coupon) == true
 				&& vallData.customerHasOne(coupon) == false) {
-			coupon = couponDao.getCoupon(coupon.getId());
-			// UpdateCustomer_CouponTableAndCouponsColl updates customer_coupon table
+			
 			customerDao.UpdateCustomer_CouponTable(customer, coupon);
 			coupon.setAmount(coupon.getAmount() - 1);
 			couponDao.updateCoupon(coupon);

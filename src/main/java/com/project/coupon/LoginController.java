@@ -41,14 +41,13 @@ public class LoginController {
 		 
 		 case COMPANY:
 			 if(companyDBDAO.login(username, passwors)) {
-				 response.sendRedirect("/coupon/company.html");
+				 response.sendRedirect("/coupon/company.html?username="+username);
 			 }break;
 		 
 		 case CUSTOMER:
 			 if(customerDBDAO.login(username, passwors)) {
-				 response.sendRedirect("/coupon/customer.html");
+				 response.sendRedirect("/coupon/customer.html?username="+username);
 			 }break;
 		}
-	}
-	
+	}	
 }

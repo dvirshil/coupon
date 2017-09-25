@@ -16,7 +16,7 @@ import com.project.Dao.CustomerDAO;
 public class DataVallidation {
 	CustomerDAO customerDao;
 	CouponDAO couponDao;
-	Customer customer;
+	Customer customer=new Customer();
 	CompanyDBDAO companyDBDao=new CompanyDBDAO();
 
 	
@@ -46,7 +46,7 @@ public class DataVallidation {
 		Coupon chechkCoup=couponDao.getCoupon(id);
 		Date date = new Date();
 	
-		if(chechkCoup.getEnd_date().before(date)){
+		if(chechkCoup.getEnd_date().after(date)){
 			return true;
 		}
 		else{
@@ -56,8 +56,7 @@ public class DataVallidation {
 	}
 		
 	public Boolean couponInStock(Coupon coupon) throws Exception, Exception {
-			Long id = coupon.getId();
-			Coupon chechkCoupStock=couponDao.getCoupon(id);
+			Coupon chechkCoupStock=couponDao.getCoupon(coupon.getId());
 			if(chechkCoupStock.getId()!=null && chechkCoupStock.getAmount()>=1){
 				return true ;
 			}

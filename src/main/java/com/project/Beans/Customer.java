@@ -7,7 +7,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 public class Customer {
 	private Long id;
 	private String cust_name;
-	private String Password;
+	private String password;
 	private Collection<Coupon>coupons;
 	
 	//constructor
@@ -18,7 +18,7 @@ public class Customer {
 	public Customer( String cust_name,String Password){
 		
 		this.cust_name=cust_name;
-		this.Password= Password;
+		this.password= Password;
 
 		}
 	
@@ -37,10 +37,10 @@ public class Customer {
 		this.cust_name = cust_name;
 	}
 	public String getPassword() {
-		return Password;
+		return password;
 	}
 	public void setPassword(String password) {
-		Password = password;
+		this.password = password;
 	}
 	
 	public Collection<Coupon> getCoupons() {
@@ -52,7 +52,7 @@ public class Customer {
 	}
 	@Override
 	public String toString(){
-		return "Customer : id="+ id +", name="+ cust_name + ", password=" + Password;
+		return "Customer : id="+ id +", name="+ cust_name + ", password=" + password;
 		
 	}
 

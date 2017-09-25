@@ -16,7 +16,15 @@ public class CoponDBDAOTest {
 	//getCoupon();
 	
 	//getAllCoupons();
-		getCouponByType();
+		//getCouponByType();
+		getAllCompanyCoupons();
+		
+	}
+
+	private static void getAllCompanyCoupons() throws Exception {
+		CouponDBDAO coupDao = new CouponDBDAO();
+		coupDao.getAllCompanyCoupons((long) 1);
+		
 	}
 
 	private static void getCouponByType() throws Exception {

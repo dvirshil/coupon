@@ -20,6 +20,9 @@ import com.project.Dao.CustomerDAO;
 public class CustomerDBDAO implements CustomerDAO {
 	private ConnectionPool pool;
 	Customer customer = new Customer();
+	Coupon coupon = new Coupon();
+	private SimpleDateFormat format = new SimpleDateFormat("yyyy-mm-dd");
+
 
 	public CustomerDBDAO() {
 		pool = ConnectionPool.getInstance();
@@ -178,30 +181,21 @@ public class CustomerDBDAO implements CustomerDAO {
 			while (rs.next())
 				try {
 					{
-						Coupon coupon = new Coupon();
-						String coupon_id = rs.getString("id");
-						String coupon_title = rs.getString("title");
-						String coupon_Start_date = rs.getString("Start_date");
-						String coupon_End_date = rs.getString("End_date");
-						String coupon_Amount = rs.getString("Amount");
-						String coupon_type = rs.getString("type");
-						String coupon_message = rs.getString("message");
-						String coupon_price = rs.getString("price");
-						String coupon_image = rs.getString("image");
+						String sdate=rs.getString("start_date");
+						String eDate=rs.getString("end_date");
+						String ct=rs.getString("type");
 
-						coupon.setId(Long.parseLong(coupon_id));
-						coupon.setTitle(coupon_title);
-						DateFormat format = new SimpleDateFormat("YYYY-MM-DD", Locale.ENGLISH);
-						Date Start_date = format.parse(coupon_Start_date);
-						coupon.setStart_date(Start_date);
-						Date End_date = format.parse(coupon_End_date);
-						coupon.setEnd_date(End_date);
-						coupon.setAmount(Integer.parseInt(coupon_Amount));
-						coupon.setType(CouponType.valueOf(coupon_type));
-						coupon.setMessage(coupon_message);
-						coupon.setPrice(Double.parseDouble(coupon_price));
-						coupon.setImage(coupon_image);
-
+						coupon.setId(rs.getLong("id"));	
+						coupon.setTitle(rs.getString("title"));
+						Date startDate = format.parse(sdate);
+						coupon.setStart_date(startDate);
+						Date endDate = format.parse(eDate);
+						coupon.setEnd_date(endDate);
+						coupon.setAmount(rs.getInt("Amount"));
+						coupon.setType(CouponType.valueOf(ct.toUpperCase()));
+						coupon.setMessage(rs.getString("message"));
+						coupon.setPrice(rs.getDouble("price"));
+						coupon.setImage(rs.getString("image"));
 						Coupons.add(coupon);
 					}
 				} catch (Exception e) {
@@ -216,19 +210,19 @@ public class CustomerDBDAO implements CustomerDAO {
 
 	}
 	// the function returns collection of all the  id coupon the customer own
-	public Collection<Coupon> getCouponsByCustomer(Customer costomer) throws SQLException, Exception {
+	public Collection<Coupon> getCouponsByCustomer(Customer customer) throws SQLException, Exception {
 		Connection con = pool.getConnection();
 		ArrayList<Coupon> customerCouponsID = new ArrayList<Coupon>();
 		try {
-			String query = "SELECT * FROM customer_coupon WHERE cust_id=" + costomer.getId() + ";";
+			String query = "SELECT * FROM customer_coupon WHERE cust_id='" + customer.getId() + "';";
 			Statement st;
 			st = con.createStatement();
 			ResultSet rs = st.executeQuery(query);
 			while (rs.next())
 				try {
-						Coupon coupon = new Coupon();
-						String coupon_id = rs.getString("id");
-						coupon.setId(Long.parseLong(coupon_id));
+						
+						Long coupon_id = rs.getLong("id");
+						coupon.setId(coupon_id);
 						customerCouponsID.add(coupon);
 							
 				} catch (Exception e) {
@@ -247,8 +241,8 @@ public class CustomerDBDAO implements CustomerDAO {
 	public void UpdateCustomer_CouponTable(Customer customer, Coupon coupon) throws SQLException {
 		Connection con = pool.getConnection();
 		try {
-			String query = "INSERT INTO Customer_Coupon (Cust_ID, Coupon_ID)" + "VALUES('" + customer.getId() + "','"
-					+ coupon.getId() + "');";
+			String query = "INSERT INTO Customer_Coupon (Cust_ID, Coupon_ID)" + "VALUES'" + customer.getId() + "','"
+					+ coupon.getId() + "';";
 			Statement st;
 			st = con.createStatement();
 			st.executeUpdate(query);

@@ -19,7 +19,7 @@ public class CustomerDBDAOTest {
 
 	private static void login() throws Exception {
 		CustomerDBDAO custDao = new CustomerDBDAO();
-		custDao.login("anya", "123");
+		custDao.login("Aya", "123");
 		
 	}
 

@@ -4,39 +4,68 @@
 <meta charset="ISO-8859-1">
 <title>Coupon System LoginS</title>
 		<link rel="stylesheet" type="text/css" href="css/Style.css">
-		<link href='css/bootstrap.css' rel='stylesheet'>
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/prefixfree/1.0.7/prefixfree.min.js"></script>
-		<link href='css/main.css' rel='stylesheet'>
-		<link href='JS/index.js' rel='javaScript'>
-</head>
-<body class='container-fluid'>
-	<header class="header">
-		<h1 >Welcome to the Coupons Management System</h1><hr/>
-	</header>
+		<script src="JS/angular.min.js"></script>
+		<script src="jquery/jquery-3.2.1.min.js"></script>
 
-			<div class="login">
-			<div class='row text-center'>
-			<h1>Please fill your name and password:</h1>
-			<form action="webapi/login"  method="post">
-			
-					<label for="name"><h2>Name:</h2></label>
+		<div ng-app="couponSystem"></div>
+		
+		<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet"	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<script	src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+		<!-- <link href='css/bootstrap.css' rel='stylesheet'>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/prefixfree/1.0.7/prefixfree.min.js"></script>
+		<link href='JS/index.js' rel='javaScript'> -->
+</head>
+<body >
+	<header class="header">
+		<h1  style="text-align: center;">Welcome to the Coupons Management System</h1>
+		<hr/>
+	</header>
+	<div style="text-align: center;">
+	<button type="button" id="username" data-toggle="modal"	data-target="#myModal1">Login</button>
+	<!-- Modal -->
+	<div class="modal fade" id="myModal1" role="dialog">
+		<div class="modal-dialog">
+			<!-- Modal content-->
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+					<br> 
+					<form action="webapi/login"  method="post" name="myForm">
+					<h3>Please fill your name and password: </h3>
+					<div>
+						<label>name:</label>
 			    	<input type="text" id="username" name="username" placeholder="Enter Your Name:" required="required" />
-			    	
-			    	<label for="passwors"><h2>Password:</h2></label>
-			        <input type="password" id="password" name="password" placeholder="Enter Your Password:" required="required" />
-			        
-			        <label for="type"><h2>choose your Client Type:</h2></label>
+			    	</div>
+			    	<br>
+			    	<div>
+			    	<label >Password:</label>
+			        <input type="text" id="password" name="password" placeholder="Enter Your Password:" required="required" />
+			        </div>
+			        <br>
+			        <div>
+			        <label >choose your Client Type:</label>
 					    <select id="type" name="type">
-					        <option value="ADMIN">Admin</option>
-							<option value="COMPANY">Company</option>
-							<option value="CUSTOMER">Customer</option>
+					        <option value="ADMIN">ADMIN</option>
+							<option value="COMPANY">COMPANY</option>
+							<option value="CUSTOMER">CUSTOMER</option>
 					    </select>
-			        <br><br>
+					    </div>
+			        <br>
+			        <div>
 			        <button type="submit" name="submit">Login</button>
+				</div>
 			</form>
 		</div>
+		</div>
+		</div>
 	</div>
-			<script src='https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js'></script>
-			<script src='js/bootstrap.js'></script>
+</div>
+	
+			<!-- <script src='https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js'></script>
+			<script src='js/bootstrap.js'></script> -->
 </body>
 </html>

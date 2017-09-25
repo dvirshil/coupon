@@ -34,7 +34,7 @@ public class AdminController {
 	@POST
 	@Path("/createCompany")
 	@Produces(MediaType.APPLICATION_JSON)
-	public String createCompanyTest(@FormParam("companyName") String companyName,
+	public void createCompanyTest(@FormParam("companyName") String companyName,
 									@FormParam("companyPassword") String companyPassword,
 									@FormParam("companyEmail") String companyEmail) throws Exception {
 							
@@ -45,8 +45,8 @@ public class AdminController {
 		company.setEmail(companyEmail);
 			adminFacade.createCompany(company);
 		
-		//response.sendRedirect("admin.html");
-		return "create company - admin.html";
+		response.sendRedirect("/coupon/admin.html");
+		//return "create company - admin.html";
 	}
 	
 	
