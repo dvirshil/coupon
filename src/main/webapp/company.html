@@ -15,11 +15,18 @@
 <link rel="stylesheet"	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 <script	src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script	src="JS/company.js"></script>
+
+<script >
+var searchParams = new URLSearchParams(window.location.search); //?anything=123
+var username = searchParams.get("username");
+document.getElementById("user").value = username;
+</script>
+
 </head>
 <body>
-
 	<header class="header">
-		<h1 style="text-align: center;">Hello, Welcome to company control page</h1>
+		<h1 style="text-align: center;">Hello, Welcome to company control page.</h1>
 		<hr />
 	</header>
 	<div style="text-align: center;">
@@ -206,8 +213,11 @@
 					<form action="webapi/company/getCouponById" method="post" name="myForm">
 						<div>
 							<label>Coupon ID</label> 
+							
 							<input type="text" name="couponId" id="couponId" placeholder="Enter Coupon ID:" required="required" />
+							<input type="text" id="user"  name="usernamelog" value="" >
 						</div>
+						
 						<br>
 							<button type="submit" name="Submit">Submit</button>
 					</form>

@@ -6,22 +6,22 @@ import java.text.SimpleDateFormat;
 import java.util.Collection;
 import java.util.Date;
 
+import javax.websocket.server.PathParam;
 import javax.ws.rs.FormParam;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 
 import com.project.Beans.Coupon;
 import com.project.Beans.CouponType;
 import com.project.Facade.CompanyFacade;
+import com.sun.research.ws.wadl.Request;
 
 @Path("/company")
 public class CompanyController {
 	
-
-	
-
 
 	
 	 private final static SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
@@ -116,8 +116,10 @@ public class CompanyController {
 	@POST
 	@Path("/getCouponById")
 	@Produces(MediaType.TEXT_PLAIN)
-	public Coupon getCouponById(@FormParam("couponId") long couponId) throws Exception {
-		
+	public Coupon getCouponById(@FormParam("couponId") long couponId,
+								@FormParam ("usernamelog") String username) throws Exception {
+	System.out.println("the user name is:" + username);
+	
 	companyFacade.getCoupon(couponId);
 		System.out.println("get coupon by id - company.html");
 		

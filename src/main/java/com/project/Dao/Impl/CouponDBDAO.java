@@ -430,20 +430,21 @@ public class CouponDBDAO implements CouponDAO {
 		Connection con = pool.getConnection();
 		
 		try {
-			String query = "SELECT * FROM coupon WHERE `title` = '" + title + "'";
+			String query = "SELECT * FROM coupon WHERE `title` = '" + title + "';";
 
 			Statement st;
 			st = con.createStatement();
 			st.executeUpdate(query);
 			ResultSet rs = st.executeQuery(query);
-			return (rs.next());
-		
+			while (rs.next());
+			return false;
 		} catch (Exception e) {
 			throw new Exception("cannot select Coupon title from DB");
 		}
 		
 		finally {
 	 	pool.returnConnection(con);
+	 	return true;
 		}
 	}
 	

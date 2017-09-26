@@ -17,8 +17,13 @@ public class CoponDBDAOTest {
 	
 	//getAllCoupons();
 		//getCouponByType();
-		getAllCompanyCoupons();
-		
+		//getAllCompanyCoupons();
+		isTitleExsist();
+	}
+
+	private static void isTitleExsist() throws Exception {
+		CouponDBDAO coupon=new CouponDBDAO();		
+	coupon.isTitleExsist("dvir");
 	}
 
 	private static void getAllCompanyCoupons() throws Exception {
