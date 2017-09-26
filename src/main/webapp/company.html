@@ -17,11 +17,16 @@
 <script	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <script	src="JS/company.js"></script>
 
-<script >
+ <script type="text/javascript">
+function name(element) {
+	
 var searchParams = new URLSearchParams(window.location.search); //?anything=123
-var username = searchParams.get("username");
-document.getElementById("user").value = username;
-</script>
+var userName = searchParams.get("username");
+} 
+document.getElementById("user").innerHTML =username;
+  
+ 
+ </script>
 
 </head>
 <body>
@@ -113,6 +118,7 @@ document.getElementById("user").value = username;
 							<div>
 								<label>Coupon ID</label> 
 								<input type="text" name="couponId" id="couponId" placeholder="Enter Coupon ID:" required="required" />
+								<input name="fun" id="fun" type="hidden"/>
 							</div>	
 								<br>
 								<input type="submit" name="Submit" />
@@ -209,18 +215,19 @@ document.getElementById("user").value = username;
 			<div class="modal-content">
 				<div class="modal-header">
 					<button type="button" class="close" data-dismiss="modal">&times;</button>
-					<br>
 					<form action="webapi/company/getCouponById" method="post" name="myForm">
-						<div>
 							<label>Coupon ID</label> 
-							
+						<div>	
 							<input type="text" name="couponId" id="couponId" placeholder="Enter Coupon ID:" required="required" />
-							<input type="text" id="user"  name="usernamelog" value="" >
-						</div>
-						
+							<input name="fun" id="fun" type="hidden"/>
+							<script>
+							document.getElementById("fun").value = new URLSearchParams(window.location.search).get("username");
+							</script>
+							</div>
 						<br>
 							<button type="submit" name="Submit">Submit</button>
 					</form>
+
 				</div>
 			</div>
 		</div>
@@ -228,7 +235,7 @@ document.getElementById("user").value = username;
 	<br>
 	<br>
 	
-	<button type="button" onclick="getCouponsByType()" data-toggle="modal"vdata-target="#myModal5">Get Coupon By Type</button>
+	<button type="button" onclick="getCouponsByType()" data-toggle="modal" data-target="#myModal5">Get Coupon By Type</button>
 	<!-- Modal -->
 	<div class="modal fade" id="myModal5" role="dialog">
 		<div class="modal-dialog">
@@ -271,5 +278,6 @@ document.getElementById("user").value = username;
 	<br>
 	</div>
 	</div>
+	
 </body>
 </html>

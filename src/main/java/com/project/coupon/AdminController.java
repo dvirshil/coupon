@@ -26,6 +26,7 @@ public class AdminController {
 	
 	@Context    
 	private HttpServletResponse response;
+	private HttpServletRequest request;
 	
 	 AdminFacade adminFacade=new AdminFacade();
 	 Company company=new Company();

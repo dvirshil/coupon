@@ -6,8 +6,10 @@ import java.text.SimpleDateFormat;
 import java.util.Collection;
 import java.util.Date;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.websocket.server.PathParam;
 import javax.ws.rs.FormParam;
+import javax.ws.rs.HeaderParam;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
@@ -22,7 +24,7 @@ import com.sun.research.ws.wadl.Request;
 @Path("/company")
 public class CompanyController {
 	
-
+	private HttpServletRequest request;
 	
 	 private final static SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 	 Coupon coupon=new Coupon();
@@ -70,7 +72,9 @@ public class CompanyController {
 	@POST
 	@Path("/removeCoupon")
 	@Produces(MediaType.TEXT_PLAIN)
-	public String removeCoupon(@FormParam("couponId") long couponId) throws SQLException {
+	public String removeCoupon(@FormParam("couponId") long couponId,
+			@FormParam ("fun") String username) throws SQLException {
+		System.out.println(username);
 		coupon.setId(couponId);
 		companyFacade.removeCoupon(coupon);
 		
@@ -117,8 +121,10 @@ public class CompanyController {
 	@Path("/getCouponById")
 	@Produces(MediaType.TEXT_PLAIN)
 	public Coupon getCouponById(@FormParam("couponId") long couponId,
-								@FormParam ("usernamelog") String username) throws Exception {
-	System.out.println("the user name is:" + username);
+								@FormParam ("fun") String username) throws Exception {
+		System.out.println(username);
+		System.out.println("couponid="+couponId);
+		System.out.println("the user name is:" + username);
 	
 	companyFacade.getCoupon(couponId);
 		System.out.println("get coupon by id - company.html");

@@ -199,8 +199,8 @@ public class CompanyDBDAO implements CompanyDAO {
 			st = con.createStatement();
 			st.executeUpdate(query);
 			ResultSet rs = st.executeQuery(query);
-			return (rs.next());
-			
+			while (rs.next());
+			return true;
 			
 		} catch (Exception e) {
 			throw new Exception("cannot select Coupon from DB");

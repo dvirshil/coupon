@@ -93,15 +93,15 @@ public class CompanyFacade implements CouponClientFacade {
 		Company company = getCompanyName();
 		Coupon coupon = null;
 		
-		if (compDao.isBelongToCompany(company.getId(), id)){
+		coupon = coupDao.getCoupon(id);
+/*		if (compDao.isBelongToCompany(company.getId(), id)){
 			
-			coupon = coupDao.getCoupon(id);
 		}
 		
 		else {
 			System.err.println("YOU DON'T ALLOWED TO SEE THIS COUPON DETAILS, id = " + id);
 		}
 		
-		return coupon;
+*/		return coupon;
 	}
 }
