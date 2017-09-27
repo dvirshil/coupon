@@ -1,6 +1,7 @@
 package com.project.coupon;
 
 
+import java.io.IOException;
 import java.sql.SQLException;
 import java.util.Collection;
 
@@ -35,7 +36,7 @@ public class AdminController {
 	@POST
 	@Path("/createCompany")
 	@Produces(MediaType.APPLICATION_JSON)
-	public void createCompanyTest(@FormParam("companyName") String companyName,
+	public String createCompany(@FormParam("companyName") String companyName,
 									@FormParam("companyPassword") String companyPassword,
 									@FormParam("companyEmail") String companyEmail) throws Exception {
 							
@@ -45,9 +46,9 @@ public class AdminController {
 		company.setPassword(companyPassword);
 		company.setEmail(companyEmail);
 			adminFacade.createCompany(company);
-		
+		System.out.println("company name :" + companyName);
 		response.sendRedirect("/coupon/admin.html");
-		//return "create company - admin.html";
+		return companyName;
 	}
 	
 	
@@ -55,20 +56,20 @@ public class AdminController {
 	@POST
 	@Path("/removeCompany")
 	@Produces(MediaType.TEXT_PLAIN)
-	public String removeCompany(@FormParam("companyId") String companyId) throws SQLException {
+	public void removeCompany(@FormParam("companyId") String companyId) throws SQLException, Exception {
 		
 		long id=Long.parseLong(companyId);
 		company.setId(id);
 		adminFacade.removeComany(company);
 		
-		return "remove company - admin.html";
+		response.sendRedirect("/coupon/admin.html");
 		
 	}
 	
 	@POST
 	@Path("/updateCompany")
 	@Produces(MediaType.TEXT_PLAIN)
-	public String updateCompany(@FormParam("companyId") String companyId,
+	public void updateCompany(@FormParam("companyId") String companyId,
 								@FormParam("companyName") String companyName,
 								@FormParam("companyPsaaword") String companyPassword,
 								@FormParam("companyEmail") String companyEmail) throws Exception {
@@ -81,7 +82,7 @@ public class AdminController {
 		
 		adminFacade.updateCompany(company);
 		
-		return "update company - admin.html";
+		response.sendRedirect("/coupon/admin.html");
 	}
 	
 	@POST
@@ -100,7 +101,7 @@ public class AdminController {
 		} catch (Exception e) {
 			throw new Exception("FAILED GET COMPANY");
 		}
-		response.sendRedirect("admin.html");
+
 		return company;
 	}
 	
