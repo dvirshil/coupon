@@ -1,7 +1,5 @@
 package com.project.coupon;
 
-import java.net.HttpURLConnection;
-import java.net.URL;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.util.ArrayList;
@@ -67,11 +65,12 @@ public class CustomerController {
 
 	@POST
 	@Path("/getAllPurchasedCouponsByPrice")
-	@Produces(MediaType.TEXT_PLAIN)
-	public Collection<Coupon> getAllPurchasedCouponsByPrice(@FormParam("price") double price) throws SQLException, ParseException {
-		
-		return customerFacade.getAllPurchasedCouponbyPrice(price);
-	}
+	@Produces(MediaType.APPLICATION_JSON)
+	public Collection<Coupon> getAllPurchasedCouponsByPrice(@FormParam("price") double price,
+															@FormParam ("username") String username) throws SQLException, ParseException {
 
+		customerFacade.customer.setCust_name(username);
+	return  customerFacade.getAllPurchasedCouponbyPrice(price);
+	}
 
 }

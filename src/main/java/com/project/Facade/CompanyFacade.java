@@ -16,7 +16,8 @@ public class CompanyFacade implements CouponClientFacade {
 	public CompanyDBDAO compDao;
 	public CouponDBDAO coupDao;
 	public Company company;
-
+	Coupon coupon=new Coupon();
+	
 	public CompanyFacade() {
 		this.coupDao = new CouponDBDAO();
 		this.compDao = new CompanyDBDAO();
@@ -25,18 +26,17 @@ public class CompanyFacade implements CouponClientFacade {
 	}
 
 	public void createCoupon(Coupon coupon) throws SQLException, Exception {
-		this.company = this.coupDao.checkcompany(company.getComp_name());
-		this.coupDao.createCoupon(coupon);
-		this.coupDao.createCouponCompany(coupon, company);
+		company.setId(this.coupDao.getCompanyIdByCompanyName(company.getComp_name()));
+		coupDao.createCoupon(coupon);
+		//  TODO  coupDao.createCouponCompany(coupon, company);
 	}
 
 	public void removeCoupon(Coupon coupon) throws SQLException {
-		this.company = this.coupDao.checkcompany(company.getComp_name());
+		//this.company = this.coupDao.checkcompany(company.getComp_name());
 		this.coupDao.removeCoupon(coupon);
 	}
 
 	public void updateCoupon(Coupon coupon) throws SQLException {
-		this.company = this.coupDao.checkcompany(company.getComp_name());
 		this.coupDao.updateCoupon(coupon);
 	}
 
@@ -51,8 +51,7 @@ public class CompanyFacade implements CouponClientFacade {
 	}
 
 	public Collection<Coupon> getAllCouponByType(CouponType couponType, long compId) throws Exception {
-		this.company = this.coupDao.checkcompany(company.getComp_name());
-		return this.coupDao.getCompanyCouponsByType(couponType, compId);
+		return coupDao.getCompanyCouponsByType(couponType, compId);
 	}
 
 	public Collection<Coupon> getAllCompanyCoupons(long id) throws Exception {
@@ -90,11 +89,10 @@ public class CompanyFacade implements CouponClientFacade {
 
 	public Coupon getCoupon(long id) throws SQLException, Exception  {
 		// checking if the given coupon belongs to the logged in Company
-		Company company = getCompanyName();
-		Coupon coupon = null;
+		company.setId(coupDao.getCompanyIdByCompanyName(company.getComp_name()));
 		
 		coupon = coupDao.getCoupon(id);
-/*		if (compDao.isBelongToCompany(company.getId(), id)){
+	if (compDao.isBelongToCompany(company.getId(), id)){
 			
 		}
 		
@@ -102,6 +100,6 @@ public class CompanyFacade implements CouponClientFacade {
 			System.err.println("YOU DON'T ALLOWED TO SEE THIS COUPON DETAILS, id = " + id);
 		}
 		
-*/		return coupon;
+		return coupon;
 	}
 }

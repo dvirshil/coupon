@@ -24,13 +24,16 @@ public class CouponDBDAO implements CouponDAO {
 	private SimpleDateFormat format = new SimpleDateFormat("yyyy-mm-dd");
 	Coupon coupon = new Coupon();
 	Collection<Customer> customers=new ArrayList<>();
-
+	public CompanyDBDAO compDao;
+	Company company = new Company();
+	
 	public CouponDBDAO() {
-
+		this.compDao = new CompanyDBDAO();
 		pool = ConnectionPool.getInstance();
 	}
 	//singleton
 	private static CouponDBDAO instance= null;
+	
 	public static CouponDBDAO getInstance(){
 		
 		if (instance == null) {
@@ -43,10 +46,10 @@ public class CouponDBDAO implements CouponDAO {
 	public void createCoupon(Coupon coupon) throws SQLException, Exception {
 		Connection con = pool.getConnection();
 		String couponTitle = coupon.getTitle();
-		if(!isTitleExsist(couponTitle)) {
+		if(isTitleExsist(couponTitle)) {
 		try {
 			String query = "INSERT INTO Coupon (title, start_date, end_date, amount, type, message, price, image)"
-					+ "VALUES ('" + "','" + coupon.getTitle() + "','"
+					+ "VALUES ('" + coupon.getTitle() + "','"
 					+ format.format(coupon.getStart_date()) + "','" + format.format(coupon.getEnd_date()) + "','"
 					+ coupon.getAmount() + "','" + coupon.getType().name() + "','" + coupon.getMessage() + "','"
 					+ coupon.getPrice() + "','" + coupon.getImage() + "');";
@@ -146,6 +149,8 @@ public class CouponDBDAO implements CouponDAO {
 
 	}
 	public void createCouponCompany(Coupon coupon, Company company) throws SQLException {
+		System.out.println(coupon + "\n"+ company);
+		coupon.getId();
 		Connection con = pool.getConnection();
 
 		try {
@@ -156,6 +161,7 @@ public class CouponDBDAO implements CouponDAO {
 			Statement st;
 			st = con.createStatement();
 			st.executeUpdate(query);
+			
 			System.out.println("CompanyCoupon has been created");
 		} catch (SQLException e) {
 			throw new SQLException("Cannot insert couponcompany data into DB");
@@ -271,14 +277,14 @@ public class CouponDBDAO implements CouponDAO {
 	
 	public Company checkcompany(String comp_name) throws SQLException {
 		Connection con = pool.getConnection();
-		Company comp = new Company();
+		System.out.println(company);
 		try {
 			String query = "SELECT * FROM Company WHERE COMP_NAME = '" + comp_name + "';";
 			Statement st;
 			st = con.createStatement();
 			ResultSet rs = st.executeQuery(query);
 			while (rs.next()) {
-				comp.setId(Long.parseLong("id"));
+				company.setId(Long.getLong("id"));
 			}
 
 		} catch (SQLException e) {
@@ -286,7 +292,7 @@ public class CouponDBDAO implements CouponDAO {
 		}
 
 		pool.returnConnection(con);
-		return comp;
+		return company;
 
 	}
 	@Override
@@ -401,7 +407,7 @@ public class CouponDBDAO implements CouponDAO {
 	}
 	public Collection<Coupon> getCompanyCouponsByType(CouponType type, Long compId) throws SQLException, Exception {
 		
-		Collection<Coupon> Coupons = new ArrayList<Coupon>();
+		Collection<Coupon> coupons = new ArrayList<Coupon>();
 		Connection con = pool.getConnection();
 		try {
 			
@@ -411,11 +417,24 @@ public class CouponDBDAO implements CouponDAO {
 			ResultSet rs = st.executeQuery(query);
 			
 			while (rs.next()) {
-				Coupon coupon = new Coupon();
+
+				String sdate=rs.getString("start_date");
+				String eDate=rs.getString("end_date");
+				String ct=rs.getString("type");
+
+				coupon.setId(rs.getLong("id"));	
+				coupon.setTitle(rs.getString("title"));
+				Date startDate = format.parse(sdate);
+				coupon.setStart_date(startDate);
+				Date endDate = format.parse(eDate);
+				coupon.setEnd_date(endDate);
+				coupon.setAmount(rs.getInt("Amount"));
+				coupon.setType(CouponType.valueOf(ct.toUpperCase()));
+				coupon.setMessage(rs.getString("message"));
+				coupon.setPrice(rs.getDouble("price"));
+				coupon.setImage(rs.getString("image"));
 				
-				String coup_id = rs.getString("COUPON_ID");
-				coupon.setId(Long.parseLong(coup_id));
-				Coupons.add(coupon);
+				coupons.add(coupon);
 			}
 			
 		} catch (Exception e) {
@@ -423,32 +442,53 @@ public class CouponDBDAO implements CouponDAO {
 		}
 		
 		pool.returnConnection(con);
-		return Coupons;
+		return coupons;
 	}
 	
 	public boolean isTitleExsist (String title) throws Exception {
 		Connection con = pool.getConnection();
 		
 		try {
-			String query = "SELECT * FROM coupon WHERE `title` = '" + title + "';";
+			String query = "SELECT title FROM coupon WHERE `title` = '" + title + "';";
 
 			Statement st;
 			st = con.createStatement();
-			st.executeUpdate(query);
 			ResultSet rs = st.executeQuery(query);
-			while (rs.next());
-			return false;
+			while(rs.next() ) {
+				return false;
+			}
 		} catch (Exception e) {
 			throw new Exception("cannot select Coupon title from DB");
 		}
 		
 		finally {
 	 	pool.returnConnection(con);
-	 	return true;
 		}
+		return true;
 	}
 	
+	public Long getCompanyIdByCompanyName( String CompanyName) throws SQLException {
+		company.setComp_name(CompanyName);
+		Connection con = pool.getConnection();
+		
+		try {
+			String query = "SELECT id FROM Company WHERE COMP_NAME = '" + CompanyName + "';";
+			Statement st;
+			st = con.createStatement();
+			ResultSet rs = st.executeQuery(query);
+			while (rs.next()) {
+				company.setId(rs.getLong("id"));
+			}
 
+		} catch (SQLException e) {
+			throw new SQLException("Company doesnt exist");
+		}
+
+		pool.returnConnection(con);
+		return company.getId();
+
+		
+	}
 		
 	}
 	

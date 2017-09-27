@@ -17,12 +17,12 @@ import com.project.Dao.Impl.DataVallidation;
 public class CustomerFacade implements CouponClientFacade {
 	CustomerDAO customerDao;
 	CouponDAO couponDao;
-	Customer customer=new Customer();
+public	Customer customer;
 
 	public CustomerFacade() {
 		couponDao = CouponDBDAO.getInstance();
 		customerDao = CustomerDBDAO.getInstance();
-
+		customer=new Customer();
 	}
 
 	public Customer getCustomerName() {
@@ -56,6 +56,7 @@ public class CustomerFacade implements CouponClientFacade {
 	}
 
 	public Collection<Coupon> getAllPurchasedCouponbyPrice(double price) throws SQLException, ParseException  {
+		
 		return	couponDao.getCouponsByPrice(price);
 
 	}

@@ -17,6 +17,7 @@ import com.project.Facade.ClientType;
 @Singleton
 @Path("/login")
 public class LoginController {
+	
 	@Context    
 	private HttpServletResponse response;
 	

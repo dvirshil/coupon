@@ -12,18 +12,18 @@ public class CoponDBDAOTest {
 	
 	public static void main(String[] args) throws Exception {
 
-	//createCoupon();
+	createCoupon();
 	//getCoupon();
 	
 	//getAllCoupons();
 		//getCouponByType();
 		//getAllCompanyCoupons();
-		isTitleExsist();
+		//isTitleExsist();
 	}
 
 	private static void isTitleExsist() throws Exception {
 		CouponDBDAO coupon=new CouponDBDAO();		
-	coupon.isTitleExsist("dvir");
+	coupon.isTitleExsist("zivziv");
 	}
 
 	private static void getAllCompanyCoupons() throws Exception {
@@ -58,7 +58,7 @@ public class CoponDBDAOTest {
 	private static void createCoupon() throws SQLException, Exception {
 
 		SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
-		Coupon coup=new Coupon("aaaa", simpleDateFormat.parse("13/05/2017"), simpleDateFormat.parse("18/05/2017"), 10, CouponType.FOOD ,"sssss", 3.25, "http;//");
+		Coupon coup=new Coupon("aasssaa", simpleDateFormat.parse("13/05/2017"), simpleDateFormat.parse("18/05/2017"), 10, CouponType.FOOD ,"sssss", 3.25, "http;//");
 		CouponDBDAO coupDao = new CouponDBDAO();
 		
 		coupDao.createCoupon(coup);

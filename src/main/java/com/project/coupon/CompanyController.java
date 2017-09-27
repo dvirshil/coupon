@@ -7,28 +7,28 @@ import java.util.Collection;
 import java.util.Date;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.websocket.server.PathParam;
 import javax.ws.rs.FormParam;
-import javax.ws.rs.HeaderParam;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
-import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 
+import com.project.Beans.Company;
 import com.project.Beans.Coupon;
 import com.project.Beans.CouponType;
+import com.project.Dao.Impl.CouponDBDAO;
 import com.project.Facade.CompanyFacade;
-import com.sun.research.ws.wadl.Request;
 
 @Path("/company")
 public class CompanyController {
 	
 	private HttpServletRequest request;
 	
-	 private final static SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+	 private final static SimpleDateFormat sdf = new SimpleDateFormat("yyyy-mm-dd");
 	 Coupon coupon=new Coupon();
+	 Company company=new Company();
 	 CompanyFacade companyFacade=new CompanyFacade();
+	 CouponDBDAO couponDBDAO=new CouponDBDAO();
 	 Collection<Coupon> coupons = null;
 	 
 	@POST
@@ -41,29 +41,25 @@ public class CompanyController {
 								@FormParam("type") String type,
 								@FormParam("message") String message,
 								@FormParam("price") double price,
-								@FormParam("image") String image) throws Exception{
+								@FormParam("image") String image,
+								@FormParam("create") String username) throws Exception{
 		
-		 
 					//Change from String to Date.				
 					Date sDate = sdf.parse(startDate);
 					Date eDate=sdf.parse(endDate);
-					//Change from String to CuponType.
-					CouponType couponType = null;
-					for (CouponType ct : CouponType.values()){
-						if (ct.name().equals(type)){
-							couponType = ct;
-						}
-					}
+					
+					CouponType ct=CouponType.valueOf(type); //change from String to CouponType
 					
 					coupon.setTitle(title);
 					coupon.setStart_date(sDate);
 					coupon.setEnd_date(eDate);
 					coupon.setAmount(amount);
-					coupon.setType(couponType);
+					coupon.setType(ct);
 					coupon.setMessage(message);
 					coupon.setPrice(price);
 					coupon.setImage(image);
 					
+					companyFacade.company.setComp_name(username);
 					companyFacade.createCoupon(coupon);
 					
 					return "create coupon - company.html";
@@ -73,9 +69,9 @@ public class CompanyController {
 	@Path("/removeCoupon")
 	@Produces(MediaType.TEXT_PLAIN)
 	public String removeCoupon(@FormParam("couponId") long couponId,
-			@FormParam ("fun") String username) throws SQLException {
-		System.out.println(username);
+								@FormParam ("remove") String username) throws SQLException {
 		coupon.setId(couponId);
+		companyFacade.company.setComp_name(username);
 		companyFacade.removeCoupon(coupon);
 		
 		return "remove coupon - company.html";
@@ -94,7 +90,10 @@ public class CompanyController {
 								@FormParam("type") String type,
 								@FormParam("message") String message,
 								@FormParam("price") Double price,
-								@FormParam("image") String image) throws SQLException, ParseException{
+								@FormParam("image") String image,
+								@FormParam("update") String username) throws SQLException, ParseException{
+		companyFacade.company.setComp_name(username);
+		companyFacade.company.setId(couponDBDAO.getCompanyIdByCompanyName(company.getComp_name()));
 		
 		Date eDate=sdf.parse(endDate);  // change from String to Date
 		Date sDate=sdf.parse(startDate); // change from String to Date
@@ -110,6 +109,7 @@ public class CompanyController {
 		coupon.setPrice(price);
 		coupon.setImage(image);
 		
+		System.out.println(company);
 		companyFacade.updateCoupon(coupon);
 		
 						
@@ -121,29 +121,26 @@ public class CompanyController {
 	@Path("/getCouponById")
 	@Produces(MediaType.TEXT_PLAIN)
 	public Coupon getCouponById(@FormParam("couponId") long couponId,
-								@FormParam ("fun") String username) throws Exception {
-		System.out.println(username);
-		System.out.println("couponid="+couponId);
-		System.out.println("the user name is:" + username);
-	
+								@FormParam ("getCouponById") String username) throws Exception {
+	companyFacade.company.setComp_name(username);
 	companyFacade.getCoupon(couponId);
 		System.out.println("get coupon by id - company.html");
 		
 	return coupon;
 	}
 	
-	////////////TODO
 
 	@POST
 	@Path("/getCouponsByType")
-	@Produces(MediaType.TEXT_PLAIN)
-	public Collection<Coupon> getCouponsByType(@FormParam("companyId") Long companyId,
-												@FormParam("couponType") String couponType) throws Exception{
+	@Produces(MediaType.APPLICATION_JSON)
+	public Collection<Coupon> getCouponsByType(	@FormParam("couponType") String couponType,
+												@FormParam("getCouponsByType") String username) throws Exception{
+		company.setComp_name(username);
+		company.setId(couponDBDAO.getCompanyIdByCompanyName(company.getComp_name()));
 		
-		CouponType ct=CouponType.valueOf(couponType);
+		CouponType ct=CouponType.valueOf(couponType.toUpperCase());
 		
-		Collection<Coupon> coupon=companyFacade.getAllCouponByType(ct, companyId);
-
+		Collection<Coupon> coupon=companyFacade.getAllCouponByType(ct, company.getId());
 		return coupon;
 		
 	}

@@ -90,30 +90,34 @@
 				</div>
 
 				<div style="text-align: center;">
-					<button type="button" id="getallpurchasecouponsbyprice"
-						data-toggle="modal" data-target="#myModal4"
-						onclick="getallpurchasecouponsbyprice() ">Get All Purchase Coupons By Price</button>
-					<!-- Modal -->
-					<div class="modal fade" id="myModal4" role="dialog">
-						<div class="modal-dialog">
-							<!-- Modal content-->
-							<div class="modal-content">
-								<div class="modal-header">
-									<button type="button" class="close" data-dismiss="modal">&times;</button>
-									<br>
-									<form action="webapi/customer/getAllPurchasedCouponsByPrice" method="post" name="myForm">
-									<h1>Get All Purchase Coupons By Price</h1>
-										<div>
-											<label>Coupon price</label> 
-											<input type="text" name="price" id="price" placeholder="Enter Coupon Max. Price:" required="required" />
-										</div>
-										<input type="submit" name="Submit" />
-									</form>
-								</div>
+		<button type="button" id="getallpurchasecouponsbyprice"
+			data-toggle="modal" data-target="#myModal4"
+			onclick="getallpurchasecouponsbyprice() ">Get All Purchase
+			Coupons By Price</button>
+		<!-- Modal -->
+		<div class="modal fade" id="myModal4" role="dialog">
+			<div class="modal-dialog">
+				<!-- Modal content-->
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal">&times;</button>
+						<br>
+						<form action="webapi/customer/getAllPurchasedCouponsByPrice"
+							method="post" name="myForm">
+							<h1>Get All Purchase Coupons By Price</h1>
+							<div>
+								<label>Coupon price</label> <input type="text" name="price"	id="price" placeholder="Enter Coupon Max. Price:" required="required" />
+									 <input name="username" id="getCouponsByPrice" type="hidden" />
+								<script>
+									document.getElementById("getCouponsByPrice").value = new URLSearchParams(window.location.search).get("username");
+								</script>
 							</div>
-						</div>
+							<input type="submit" name="Submit" />
+						</form>
 					</div>
-					<br> <br>
 				</div>
+			</div>
+		</div>
+	</div>
 </body>
 </html>

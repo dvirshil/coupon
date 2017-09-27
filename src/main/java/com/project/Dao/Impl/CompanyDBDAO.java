@@ -129,14 +129,11 @@ public class CompanyDBDAO implements CompanyDAO {
 			ResultSet rs = st.executeQuery(query);
 			while (rs.next()) {
 				Company company= new Company();
-				Long compId =rs.getLong("id");
-				String compName = rs.getString("comp_name");
-				String compPass = rs.getString("Password");
-				String compEmail = rs.getString("email");
-				company.setId(compId);
-				company.setComp_name(compName);
-				company.setPassword(compPass);
-				company.setEmail(compEmail);
+
+				company.setId(rs.getLong("id"));
+				company.setComp_name(rs.getString("comp_name"));
+				company.setPassword(rs.getString("Password"));
+				company.setEmail(rs.getString("email"));
 				
 				allCompanies.add(company);
 				
@@ -190,14 +187,14 @@ public class CompanyDBDAO implements CompanyDAO {
 	}
 
 	public boolean isBelongToCompany (long compId, long couponId) throws Exception {
+		
 		Connection con = pool.getConnection();
 		
 		try {
-			String query = "SELECT company_id FROM company_coupon WHERE `company_id` = '" + compId + "&& 'coupon_id="+ couponId +"'";
+			String query = "SELECT company_id FROM company_coupon WHERE `company_id` = '" + compId + "'&& coupon_id='"+ couponId +"';";
 			
 			Statement st;
 			st = con.createStatement();
-			st.executeUpdate(query);
 			ResultSet rs = st.executeQuery(query);
 			while (rs.next());
 			return true;
