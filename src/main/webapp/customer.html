@@ -40,6 +40,10 @@
 								<input type="text" name="couponId" id="couponId" placeholder="Enter Coupon ID:" required="required" />
 							</div>
 							<br>
+							<input name="purchase" id="purchase" type="hidden" />
+								<script>
+									document.getElementById("purchase").value = new URLSearchParams(window.location.search).get("username");
+								</script>
 								<input type="submit" name="Submit" />
 						</form>
 					</div>
@@ -50,8 +54,13 @@
 		<br> <br>
 			<!-- -------------TODO------------- -->
 				<div style="text-align: center;">
-			<button type="button" id="getallpurchasedcoupons" data-toggle="modal" data-target="#myModal2" onclick="getallpurchasedcoupons() ">
-			Get	All Purchased Coupons</button>
+			<form action="webapi/customer/getAllPurchasedCoupons" method="get" name="myForm">
+			<button  type="submit" formmethod="post" formaction="webapi/customer/getAllPurchasedCoupons" id="getallpurchasedcoupons" data-toggle="modal" data-target="#myModal2" >Get All Purchased Coupons</button>
+				 <input name="allPurchasedCoupons" id="allPurchasedCoupons" type="hidden" />
+								<script>
+									document.getElementById("allPurchasedCoupons").value = new URLSearchParams(window.location.search).get("username");
+								</script>
+								</form>
 			<br> <br>
 		</div>
 		
@@ -81,6 +90,10 @@
 										</select>
 									</div>
 									<input type="submit" name="Submit" />
+										 <input name="getCouponsByType" id="getCouponsByType" type="hidden" />
+								<script>
+									document.getElementById("getCouponsByType").value = new URLSearchParams(window.location.search).get("username");
+								</script>
 								</form>
 							</div>
 						</div>
@@ -107,7 +120,7 @@
 							<h1>Get All Purchase Coupons By Price</h1>
 							<div>
 								<label>Coupon price</label> <input type="text" name="price"	id="price" placeholder="Enter Coupon Max. Price:" required="required" />
-									 <input name="username" id="getCouponsByPrice" type="hidden" />
+									 <input name="getCouponsByPrice" id="getCouponsByPrice" type="hidden" />
 								<script>
 									document.getElementById("getCouponsByPrice").value = new URLSearchParams(window.location.search).get("username");
 								</script>

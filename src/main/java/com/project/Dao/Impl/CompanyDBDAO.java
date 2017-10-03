@@ -165,18 +165,13 @@ public class CompanyDBDAO implements CompanyDAO {
 			Statement st;
 			st = con.createStatement();
 			ResultSet rs = st.executeQuery(query);
-			Customer customer = new Customer();
-			customer.setPassword(password);
 			while (rs.next()){
-				customer.setPassword( rs.getString("password"));
-			}
-			passwordMatchcompName= false;
-			if(customer.getPassword()==password){
-				passwordMatchcompName= false;
-				throw new Exception("compant: faild to log in as:" +compName +" please try again" );
-			}
-			else{
-				passwordMatchcompName= true;
+				if(rs.getString("password").equals(password)){
+					passwordMatchcompName= true;
+				}else{
+					passwordMatchcompName= false;
+					throw new Exception("compant: faild to log in as:" +compName +" please try again" );
+				}
 			}
 		} catch (SQLException e) {
 			throw new Exception("Cannot login as company;"+ compName+" to BD");

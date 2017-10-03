@@ -145,7 +145,16 @@ public class CompanyController {
 		
 	}
 	
-	
-
+	@POST
+	@Path("/getAllCoupons")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Collection<Coupon> getAllCoupons(@FormParam("getAllCoupons") String username) throws Exception{
+		company.setComp_name(username);
+		
+		coupons=couponDBDAO.getAllCoupons();
+		
+		return coupons;
+		
+	}
 	
 }

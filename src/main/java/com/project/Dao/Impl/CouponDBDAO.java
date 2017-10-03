@@ -22,7 +22,7 @@ public class CouponDBDAO implements CouponDAO {
 
 	private ConnectionPool pool;
 	private SimpleDateFormat format = new SimpleDateFormat("yyyy-mm-dd");
-	Coupon coupon = new Coupon();
+	public Coupon coupon = new Coupon();
 	Collection<Customer> customers=new ArrayList<>();
 	public CompanyDBDAO compDao;
 	Company company = new Company();

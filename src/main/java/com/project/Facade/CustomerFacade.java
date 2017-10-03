@@ -17,7 +17,7 @@ import com.project.Dao.Impl.DataVallidation;
 public class CustomerFacade implements CouponClientFacade {
 	CustomerDAO customerDao;
 	CouponDAO couponDao;
-public	Customer customer;
+    public	Customer customer;
 
 	public CustomerFacade() {
 		couponDao = CouponDBDAO.getInstance();
@@ -30,11 +30,13 @@ public	Customer customer;
 	}
 
 	public void purchasceCoupon(Coupon coupon) throws Throwable {
-		coupon=couponDao.getCoupon(coupon.getId());
-		DataVallidation vallData = new DataVallidation();
+	    DataVallidation vallData=new DataVallidation();
+	    vallData.customer.setCust_name("dvir");
+		//coupon=couponDao.getCoupon(coupon.getId());
+	    ((Customer) customer).setCust_name("dvir");
+	    customer=customerDao.getCustomerByName(customer.getCust_name());
 		if (vallData.couponDateIsVallid(coupon) == true && vallData.couponInStock(coupon) == true
 				&& vallData.customerHasOne(coupon) == false) {
-			
 			customerDao.UpdateCustomer_CouponTable(customer, coupon);
 			coupon.setAmount(coupon.getAmount() - 1);
 			couponDao.updateCoupon(coupon);
@@ -46,9 +48,14 @@ public	Customer customer;
 
 	}
 
-	public void getAllPurchasedCoupon() throws Exception {
-			couponDao.getAllCoupons();
+	public Collection<Coupon> getAllPurchasedCoupon() throws Exception {
+		customerDao.getCustomerByName(customer.getCust_name());//return customer id by name
+		Collection<Coupon> coupon = customerDao.getCouponsByCustomer(customer); //return collection of coupons ID that belong to customer
+		
+		return customerDao.getCustomerCouponByCouponsId(coupon);
+	
 	}
+	
 
 	public Collection<Coupon> getAllPurchasedCouponbyType(CouponType type) throws SQLException, Exception {
 		return couponDao.getCouponsByType(type);
@@ -56,7 +63,6 @@ public	Customer customer;
 	}
 
 	public Collection<Coupon> getAllPurchasedCouponbyPrice(double price) throws SQLException, ParseException  {
-		
 		return	couponDao.getCouponsByPrice(price);
 
 	}

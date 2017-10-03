@@ -16,7 +16,7 @@ import com.project.Dao.CustomerDAO;
 public class DataVallidation {
 	CustomerDAO customerDao;
 	CouponDAO couponDao;
-	Customer customer=new Customer();
+ public	Customer customer=new Customer();
 	CompanyDBDAO companyDBDao=new CompanyDBDAO();
 
 	
@@ -42,8 +42,8 @@ public class DataVallidation {
 	}
 	
 	public Boolean couponDateIsVallid(Coupon coupon) throws Exception, Exception {
-		Long id = coupon.getId();
-		Coupon chechkCoup=couponDao.getCoupon(id);
+		
+		Coupon chechkCoup=couponDao.getCoupon(coupon.getId());
 		Date date = new Date();
 	
 		if(chechkCoup.getEnd_date().after(date)){

@@ -21,6 +21,7 @@ public class CustomerDBDAO implements CustomerDAO {
 	private ConnectionPool pool;
 	Customer customer = new Customer();
 	Coupon coupon = new Coupon();
+	Collection<Coupon> coupons=new ArrayList<>();
 	private SimpleDateFormat format = new SimpleDateFormat("yyyy-mm-dd");
 
 
@@ -129,8 +130,8 @@ public class CustomerDBDAO implements CustomerDAO {
 			st = con.createStatement();
 			ResultSet rs = st.executeQuery(query);
 			while (rs.next()) {
-				Long id = rs.getLong("id");
-				customer.setId(id);
+				customer.setId(rs.getLong("id"));
+				customer.setCust_name(cust_name);
 				customer.setPassword(rs.getString("Password"));
 			}
 
@@ -214,7 +215,7 @@ public class CustomerDBDAO implements CustomerDAO {
 		Connection con = pool.getConnection();
 		ArrayList<Coupon> customerCouponsID = new ArrayList<Coupon>();
 		try {
-			String query = "SELECT * FROM customer_coupon WHERE cust_id='" + customer.getId() + "';";
+			String query = "SELECT * FROM customer_coupon WHERE cust_id='" + this.customer.getId() + "';";
 			Statement st;
 			st = con.createStatement();
 			ResultSet rs = st.executeQuery(query);
@@ -240,9 +241,11 @@ public class CustomerDBDAO implements CustomerDAO {
 	// updates customer_coupon table  
 	public void UpdateCustomer_CouponTable(Customer customer, Coupon coupon) throws SQLException {
 		Connection con = pool.getConnection();
+		customer.setId((long) 123);
+		coupon.setId((long) 6);
 		try {
-			String query = "INSERT INTO Customer_Coupon (Cust_ID, Coupon_ID)" + "VALUES'" + customer.getId() + "','"
-					+ coupon.getId() + "';";
+			String query = "INSERT INTO Customer_Coupon (Cust_ID, Coupon_ID)" + "VALUES' (" + customer.getId() + "','"
+					+ coupon.getId() + "');";
 			Statement st;
 			st = con.createStatement();
 			st.executeUpdate(query);
@@ -276,6 +279,7 @@ public class CustomerDBDAO implements CustomerDAO {
 
 	@Override
 	public boolean login(String custName, String password) throws Exception {
+		
 		Connection con = pool.getConnection();
 		boolean passwordMatchcustName=true;
 		try {
@@ -283,9 +287,8 @@ public class CustomerDBDAO implements CustomerDAO {
 			Statement st;
 			st = con.createStatement();
 			ResultSet rs = st.executeQuery(query);
-			customer.setPassword(rs.getString("password"));
 			while (rs.next()){
-				if (customer.getPassword().equals(password)) {
+				if (rs.getString("password").equals(password)) {
 					passwordMatchcustName = true;
 				} else {
 					passwordMatchcustName = false;
@@ -297,8 +300,20 @@ public class CustomerDBDAO implements CustomerDAO {
 		}
 
 		pool.returnConnection(con);
-		System.out.println(passwordMatchcustName);
 		return passwordMatchcustName;
+	}
+
+
+	@Override
+	public Collection<Coupon> getCustomerCouponByCouponsId(Collection<Coupon> coupons) throws SQLException, Exception {
+		for(Coupon customerCoupon: coupons) {
+			CouponDBDAO couponDBDAO=new CouponDBDAO();
+			couponDBDAO.getCoupon(customerCoupon.getId());
+			coupons.add(customerCoupon);
+		}
+		
+		
+		return coupons;
 	}
 
 

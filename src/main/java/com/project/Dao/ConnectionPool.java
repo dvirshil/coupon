@@ -16,13 +16,13 @@ import java.util.Queue;
 //maxConnections is a final attribute so it can not be change by an unauthorized user.      
 public class ConnectionPool {
 	private static String jdbcDriver = "com.mysql.jdbc.Driver";
-	private static String dbUrl = "jdbc:mysql://localhost:3306/sys";
+	private static String dbUrl = "jdbc:mysql://localhost:3306/Coupons?useSSL=false";
 	static String userName = "root";
-	static String password = "123456";
-	private final static String CONNECTION_STRING = "jdbc:mysql://localhost:3306/sys;user=root;password=123456";
+	static String password = "1234";
+	private final static String CONNECTION_STRING = "jdbc:mysql://localhost:3306/Coupons;user=root;password=1234";
 	private final static int maxConnections=4;
 	private static Queue<Long> waitList = new LinkedList<Long>();
-	private DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
+	private DateFormat dateFormat = new SimpleDateFormat("yyyy/mm/dd");
 	private Date date = new Date();
 	private static HashMap <Connection,Date> conMap= new HashMap<Connection,Date>();
 	

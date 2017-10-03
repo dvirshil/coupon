@@ -29,4 +29,7 @@ public interface CustomerDAO {
 	Collection<Coupon> getCouponsByCustomer(Customer customer) throws SQLException, Exception;
 
 	Customer getCustomerByName(String cust_name) throws Exception;
+	
+	Collection<Coupon> getCustomerCouponByCouponsId (Collection <Coupon> coupons ) throws SQLException, Exception;
+	
 }
