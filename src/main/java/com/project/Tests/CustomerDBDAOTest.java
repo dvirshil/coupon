@@ -3,18 +3,50 @@ package com.project.Tests;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import com.project.Beans.Coupon;
 import com.project.Beans.Customer;
 import com.project.Dao.Impl.CustomerDBDAO;
+import com.project.Dao.Impl.DataVallidation;
+import com.project.Facade.CustomerFacade;
 
 public class CustomerDBDAOTest {
 
-	public static void main(String[] args) throws Exception {
+	public static void main(String[] args) throws Throwable {
 		// create();
 		// remove();
 		//update();
 		//allcust();
-		login();
+		//login();
+		//purchasce();
+		allpurchasce();
 		
+	}
+
+	private static void allpurchasce() throws Exception {
+
+		CustomerFacade customerFacade = new CustomerFacade();
+		customerFacade.customer.setCust_name("dvir");
+
+		customerFacade.getAllPurchasedCoupon();
+	}
+
+	private static void purchasce() throws Throwable {
+
+		CustomerDBDAO customerDBDAO=new CustomerDBDAO();
+		customerDBDAO.customer.setCust_name("dvir");
+		customerDBDAO.customer.setId(customerDBDAO.getCustomerByName("dvir").getId());
+		
+		DataVallidation dv = new DataVallidation();
+		dv.customer.setCust_name("dvir");
+		dv.customer.setId(customerDBDAO.getCustomerByName("dvir").getId());
+
+		CustomerFacade customerFacade = new CustomerFacade();
+		customerFacade.customer.setCust_name("dvir");
+		
+		
+		Coupon coupon = new Coupon();
+		coupon.setId((long) 5);
+		customerFacade.purchasceCoupon(coupon);
 	}
 
 	private static void login() throws Exception {

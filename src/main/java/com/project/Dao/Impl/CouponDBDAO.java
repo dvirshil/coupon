@@ -8,7 +8,6 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Collections;
 import java.util.Date;
 
 import com.project.Beans.Company;
@@ -21,7 +20,7 @@ import com.project.Dao.CouponDAO;
 public class CouponDBDAO implements CouponDAO {
 
 	private ConnectionPool pool;
-	private SimpleDateFormat format = new SimpleDateFormat("yyyy-mm-dd");
+	private SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
 	public Coupon coupon = new Coupon();
 	Collection<Customer> customers=new ArrayList<>();
 	public CompanyDBDAO compDao;
@@ -114,6 +113,7 @@ public class CouponDBDAO implements CouponDAO {
 	}
 	@Override
 	public Coupon getCoupon(long id) throws SQLException, Exception {
+		Coupon coupon=new Coupon();
 		Connection con = pool.getConnection();
 		
 		try {
@@ -149,7 +149,6 @@ public class CouponDBDAO implements CouponDAO {
 
 	}
 	public void createCouponCompany(Coupon coupon, Company company) throws SQLException {
-		System.out.println(coupon + "\n"+ company);
 		coupon.getId();
 		Connection con = pool.getConnection();
 
@@ -181,6 +180,7 @@ public class CouponDBDAO implements CouponDAO {
 		ResultSet rs = st.executeQuery(query);
 
 		while (rs.next()) {
+			Coupon coupon=new Coupon();
 			String sdate=rs.getString("start_date");
 			String eDate=rs.getString("end_date");
 			String ct=rs.getString("type");
@@ -199,7 +199,6 @@ public class CouponDBDAO implements CouponDAO {
 
 			// adding the object to the Coupons Collection
 			companyCoupons.add(coupon);
-			System.out.println(companyCoupons);
 		}
 		
 		return companyCoupons;
@@ -216,7 +215,7 @@ public class CouponDBDAO implements CouponDAO {
 		ResultSet rs = st.executeQuery(query);
 
 		while (rs.next()) {
-
+			Coupon coupon=new Coupon();
 			// setting the object's fields
 
 			String sdate=rs.getString("start_date");
@@ -251,7 +250,7 @@ public class CouponDBDAO implements CouponDAO {
 			ResultSet rs = st.executeQuery(query);
 
 			while (rs.next()) {
-
+				Coupon coupon=new Coupon();
 				// setting the object's fields
 
 				String sdate=rs.getString("start_date");
@@ -277,7 +276,6 @@ public class CouponDBDAO implements CouponDAO {
 	
 	public Company checkcompany(String comp_name) throws SQLException {
 		Connection con = pool.getConnection();
-		System.out.println(company);
 		try {
 			String query = "SELECT * FROM Company WHERE COMP_NAME = '" + comp_name + "';";
 			Statement st;
@@ -306,6 +304,7 @@ public class CouponDBDAO implements CouponDAO {
 			ResultSet rs = st.executeQuery(query);
 			while (rs.next())
 				try {
+					Coupon coupon=new Coupon();
 					String sdate=rs.getString("start_date");
 					String eDate=rs.getString("end_date");
 					String ct=rs.getString("type");
@@ -344,7 +343,8 @@ public class CouponDBDAO implements CouponDAO {
 		ResultSet rs = st.executeQuery(query);
 
 		while (rs.next()) {
-
+			Coupon coupon=new Coupon();
+		
 			// setting the object's fields
 			String sdate=rs.getString("start_date");
 			String eDate=rs.getString("end_date");
@@ -366,7 +366,6 @@ public class CouponDBDAO implements CouponDAO {
 			couponsByType.add(coupon);
 
 		}
-		System.out.print(couponsByType);
 		return couponsByType;
 
 	}
@@ -374,14 +373,14 @@ public class CouponDBDAO implements CouponDAO {
 	public Collection<Coupon> getCouponsByPrice(double price) throws SQLException, ParseException {
 
 		Connection con = pool.getConnection();
-		ArrayList<Coupon> couponsByPrice = new ArrayList<Coupon>();
+		Collection<Coupon> couponsByPrice = new ArrayList<Coupon>();
 		String query = "SELECT * FROM coupon WHERE `Price` <= '" + price + "'";
 		Statement st;
 		st = con.createStatement();
 		ResultSet rs = st.executeQuery(query);
 
 		while (rs.next()) {
-
+			Coupon coupon=new Coupon();
 			String sdate=rs.getString("start_date");
 			String eDate=rs.getString("end_date");
 			String ct=rs.getString("type");
@@ -415,9 +414,8 @@ public class CouponDBDAO implements CouponDAO {
 			Statement st;
 			st = con.createStatement();
 			ResultSet rs = st.executeQuery(query);
-			
 			while (rs.next()) {
-
+				Coupon coupon=new Coupon();
 				String sdate=rs.getString("start_date");
 				String eDate=rs.getString("end_date");
 				String ct=rs.getString("type");

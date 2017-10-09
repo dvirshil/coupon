@@ -1,5 +1,8 @@
 package com.project.coupon;
 
+import java.io.IOException;
+import java.sql.SQLException;
+
 import javax.inject.Singleton;
 import javax.servlet.http.HttpServletResponse;
 import javax.ws.rs.FormParam;
@@ -9,6 +12,8 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 
+import com.project.Beans.Company;
+import com.project.Beans.Customer;
 import com.project.Dao.Impl.CompanyDBDAO;
 import com.project.Dao.Impl.CustomerDBDAO;
 import com.project.Facade.AdminFacade;

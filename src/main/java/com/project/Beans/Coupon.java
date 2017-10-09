@@ -58,12 +58,15 @@ public class Coupon {
 	public void setEnd_date(Date end_date) {
 		this.end_date = end_date;
 	}
-	public int getAmount() {
+
+	public Integer getAmount() {
 		return amount;
 	}
-	public void setAmount(int amount) {
+
+	public void setAmount(Integer amount) {
 		this.amount = amount;
 	}
+
 	public CouponType getType() {
 		return type;
 	}

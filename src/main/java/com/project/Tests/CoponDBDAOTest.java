@@ -26,10 +26,11 @@ public class CoponDBDAOTest {
 	}
 
 	private static void purchesecoupon() throws Throwable {
-		SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/mm/yyyy");
-     CustomerFacade cus=new CustomerFacade();
-		Coupon coup=new Coupon("aasssaa", simpleDateFormat.parse("13/05/2017"), simpleDateFormat.parse("18/05/2017"), 10, CouponType.FOOD ,"sssss", 3.25, "http;//");
-		cus.purchasceCoupon(coup);
+		Coupon coupon=new Coupon();
+		coupon.setId((long) 6);
+		CustomerFacade cf =  new CustomerFacade();
+		cf.purchasceCoupon(coupon);
+		
 	}
 
 	private static void isTitleExsist() throws Exception {

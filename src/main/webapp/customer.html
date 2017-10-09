@@ -23,7 +23,6 @@
 		<hr />
 	</header>
 	<div style="text-align: center;">
-	<!-- -------------TODO------------- -->
 		<button type="button" id="purchasecoupon" data-toggle="modal" data-target="#myModal1" onclick="purchasecoupon() ">Purchase Coupon</button>
 		<!-- Modal -->
 		<div class="modal fade" id="myModal1" role="dialog">
@@ -51,17 +50,16 @@
 			</div>
 		</div>
 		</div>
-		<br> <br>
-			<!-- -------------TODO------------- -->
+		<br>
 				<div style="text-align: center;">
-			<form action="webapi/customer/getAllPurchasedCoupons" method="get" name="myForm">
+			<form action="webapi/customer/getAllPurchasedCoupons" method="post" name="myForm">
 			<button  type="submit" formmethod="post" formaction="webapi/customer/getAllPurchasedCoupons" id="getallpurchasedcoupons" data-toggle="modal" data-target="#myModal2" >Get All Purchased Coupons</button>
 				 <input name="allPurchasedCoupons" id="allPurchasedCoupons" type="hidden" />
 								<script>
 									document.getElementById("allPurchasedCoupons").value = new URLSearchParams(window.location.search).get("username");
 								</script>
 								</form>
-			<br> <br>
+			<br> 
 		</div>
 		
 			<div style="text-align: center;">
@@ -105,8 +103,7 @@
 				<div style="text-align: center;">
 		<button type="button" id="getallpurchasecouponsbyprice"
 			data-toggle="modal" data-target="#myModal4"
-			onclick="getallpurchasecouponsbyprice() ">Get All Purchase
-			Coupons By Price</button>
+			onclick="getallpurchasecouponsbyprice() ">Get All Purchase Coupons By Price</button>
 		<!-- Modal -->
 		<div class="modal fade" id="myModal4" role="dialog">
 			<div class="modal-dialog">
@@ -115,8 +112,7 @@
 					<div class="modal-header">
 						<button type="button" class="close" data-dismiss="modal">&times;</button>
 						<br>
-						<form action="webapi/customer/getAllPurchasedCouponsByPrice"
-							method="post" name="myForm">
+						<form action="webapi/customer/getAllPurchasedCouponsByPrice" method="post" name="myForm">
 							<h1>Get All Purchase Coupons By Price</h1>
 							<div>
 								<label>Coupon price</label> <input type="text" name="price"	id="price" placeholder="Enter Coupon Max. Price:" required="required" />

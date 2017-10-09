@@ -16,6 +16,8 @@ import com.project.Beans.Coupon;
 import com.project.Beans.CouponType;
 import com.project.Beans.Customer;
 import com.project.Dao.Impl.CouponDBDAO;
+import com.project.Dao.Impl.CustomerDBDAO;
+import com.project.Dao.Impl.DataVallidation;
 import com.project.Facade.CustomerFacade;
 
 @Path("/customer")
@@ -25,6 +27,7 @@ public class CustomerController {
 	Coupon coupon=new Coupon();
 	CustomerFacade customerFacade=new CustomerFacade();
 	CouponDBDAO couponDBDAO = new CouponDBDAO();
+	CustomerDBDAO customerDBDAO=new CustomerDBDAO();
 	Collection<Coupon> coupons = null;
 	
 
@@ -34,19 +37,24 @@ public class CustomerController {
 	@POST
 	@Path("/purchaseCoupon")
 	@Produces(MediaType.TEXT_PLAIN)
-	public String purchaseCoupon(@FormParam("couponId") long couponId,
+	public void purchaseCoupon(@FormParam("couponId") long couponId,
 								@FormParam ("purchase") String username) throws Throwable {
+		customerDBDAO.customer.setCust_name(username);
+		customerDBDAO.customer.setId(customerDBDAO.getCustomerByName(username).getId());
+		
+		DataVallidation dv = new DataVallidation();
+		dv.customer.setCust_name(username);
+		dv.customer.setId(customerDBDAO.getCustomerByName(username).getId());
+
 		customerFacade.customer.setCust_name(username);
 		coupon.setId(couponId);
 		customerFacade.purchasceCoupon(coupon);
-		return "purchase coupon - customer.html";
 	}
 
 	@POST
 	@Path("/getAllPurchasedCoupons")
 	@Produces(MediaType.APPLICATION_JSON)
 	public Collection<Coupon> getAllPurchasedCoupons(@FormParam ("allPurchasedCoupons") String username) throws Exception {
-
 		customerFacade.customer.setCust_name(username);
 		
 		return customerFacade.getAllPurchasedCoupon();

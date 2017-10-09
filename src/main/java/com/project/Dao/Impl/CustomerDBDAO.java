@@ -19,15 +19,17 @@ import com.project.Dao.CustomerDAO;
 
 public class CustomerDBDAO implements CustomerDAO {
 	private ConnectionPool pool;
-	Customer customer = new Customer();
-	Coupon coupon = new Coupon();
+	public Customer customer;
+	public Coupon coupon = new Coupon();
 	Collection<Coupon> coupons=new ArrayList<>();
 	private SimpleDateFormat format = new SimpleDateFormat("yyyy-mm-dd");
 
 
 	public CustomerDBDAO() {
 		pool = ConnectionPool.getInstance();
+	customer=new Customer();
 	}
+	
 	
 	//singleton
 	private static CustomerDBDAO instance= null;
@@ -221,13 +223,12 @@ public class CustomerDBDAO implements CustomerDAO {
 			ResultSet rs = st.executeQuery(query);
 			while (rs.next())
 				try {
-						
-						Long coupon_id = rs.getLong("id");
-						coupon.setId(coupon_id);
+					Coupon coupon=new Coupon();
+						coupon.setId( rs.getLong("coupon_id"));
 						customerCouponsID.add(coupon);
 							
 				} catch (Exception e) {
-					throw new Exception("Cannot select Coupons data from BD");
+					throw new Exception("Cannot select Coupons data from BD.");
 				}
 
 		} catch (SQLException e) {
@@ -241,16 +242,13 @@ public class CustomerDBDAO implements CustomerDAO {
 	// updates customer_coupon table  
 	public void UpdateCustomer_CouponTable(Customer customer, Coupon coupon) throws SQLException {
 		Connection con = pool.getConnection();
-		customer.setId((long) 123);
-		coupon.setId((long) 6);
 		try {
-			String query = "INSERT INTO Customer_Coupon (Cust_ID, Coupon_ID)" + "VALUES' (" + customer.getId() + "','"
+			String query = "INSERT INTO Customer_Coupon (Cust_ID, Coupon_ID)" + "VALUES ('" + this.customer.getId() + "','"
 					+ coupon.getId() + "');";
 			Statement st;
 			st = con.createStatement();
 			st.executeUpdate(query);
-		
-
+			
 			System.out.println("Customer_Coupon table has been updated");
 		} catch (SQLException e) {
 			throw new SQLException("Cannot update customer_coupon data into DB");
@@ -308,12 +306,12 @@ public class CustomerDBDAO implements CustomerDAO {
 	public Collection<Coupon> getCustomerCouponByCouponsId(Collection<Coupon> coupons) throws SQLException, Exception {
 		for(Coupon customerCoupon: coupons) {
 			CouponDBDAO couponDBDAO=new CouponDBDAO();
-			couponDBDAO.getCoupon(customerCoupon.getId());
-			coupons.add(customerCoupon);
+			Coupon coupon=new Coupon();
+			coupon=couponDBDAO.getCoupon(customerCoupon.getId());
+			this.coupons.add(coupon);
 		}
 		
-		
-		return coupons;
+		return this.coupons;
 	}
 
 

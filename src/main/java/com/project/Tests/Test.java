@@ -3,28 +3,39 @@ package com.project.Tests;
 import java.sql.SQLException;
 
 import com.project.Beans.Company;
+import com.project.Beans.Coupon;
 import com.project.Beans.Customer;
 import com.project.Dao.Impl.CompanyDBDAO;
 import com.project.Dao.Impl.CouponDBDAO;
+import com.project.Dao.Impl.DataVallidation;
 import com.project.Facade.AdminFacade;
 import com.project.Facade.ClientType;
 
 public class Test {
 
-	public static void main(String[] args) throws Exception {
+	public static void main(String[] args) throws Throwable {
 		// remove();
 		// create();
 		// update();
 		// getcomp();
 		// getAllComp();
-		isTitleExsist();
-
+		//isTitleExsist();
+		couponDateIsVallid();
+		
 		// removeCompanyFacade();
 		// loginAdminFacade();
 		// createCompanyFacade();
 		// updatecustomeradminfacade();
 		// getcustomerbyidadminfacade();
 
+	}
+
+	private static void couponDateIsVallid() throws Exception, Throwable {
+		Coupon coupon=new Coupon();
+		coupon.setId((long) 6);
+		DataVallidation dv=new DataVallidation();
+		dv.couponDateIsVallid(coupon);
+		
 	}
 
 	private static void isTitleExsist() throws Exception {

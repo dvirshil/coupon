@@ -16,14 +16,13 @@ import com.project.Dao.CustomerDAO;
 public class DataVallidation {
 	CustomerDAO customerDao;
 	CouponDAO couponDao;
- public	Customer customer=new Customer();
+   public Customer customer=new Customer();
 	CompanyDBDAO companyDBDao=new CompanyDBDAO();
 
 	
 	public DataVallidation() throws Exception, Throwable{
 		couponDao= CouponDBDAO.getInstance();
 		customerDao=CustomerDBDAO.getInstance();
-		customer=  new Customer();
 			
 	}
 	
@@ -31,12 +30,12 @@ public class DataVallidation {
 		Collection<Coupon> customersCoupons= new ArrayList<Coupon>();
 		customersCoupons=customerDao.getCouponsByCustomer(customer);
 		Long id = coupon.getId();
-		while (customersCoupons.iterator().hasNext()){
-			if( customersCoupons.iterator().next().getId() == id) {
+			for(Coupon i:customersCoupons) {
+				if( i.getId() == id) {
 				System.out.println("You already purchased this coupon");
 				return true;
-			}	
-		}
+				}
+		    }
 		return false;
 
 	}
@@ -52,7 +51,7 @@ public class DataVallidation {
 		else{
 		System.out.println("Coupon has expired ");
 			return false;
-		}
+		}	
 	}
 		
 	public Boolean couponInStock(Coupon coupon) throws Exception, Exception {
@@ -70,7 +69,7 @@ public class DataVallidation {
 		Collection<Company> company = companyDBDao.getAllCompanies();
 		
 		for(Company companys:company) {
-			if(companys.getComp_name()==companyName || companys.getPassword()==companyPassword) {
+			if(companys.getComp_name()==companyName && companys.getPassword()==companyPassword) {
 				return false;
 			}
 					

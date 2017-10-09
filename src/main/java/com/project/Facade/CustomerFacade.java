@@ -17,27 +17,25 @@ import com.project.Dao.Impl.DataVallidation;
 public class CustomerFacade implements CouponClientFacade {
 	CustomerDAO customerDao;
 	CouponDAO couponDao;
-    public	Customer customer;
+    public Customer customer=new Customer();
 
 	public CustomerFacade() {
 		couponDao = CouponDBDAO.getInstance();
 		customerDao = CustomerDBDAO.getInstance();
-		customer=new Customer();
 	}
 
-	public Customer getCustomerName() {
+	/*public Customer getCustomerName() {
 		return this.customer;
 	}
-
+*/
 	public void purchasceCoupon(Coupon coupon) throws Throwable {
 	    DataVallidation vallData=new DataVallidation();
-	    vallData.customer.setCust_name("dvir");
-		//coupon=couponDao.getCoupon(coupon.getId());
-	    ((Customer) customer).setCust_name("dvir");
 	    customer=customerDao.getCustomerByName(customer.getCust_name());
-		if (vallData.couponDateIsVallid(coupon) == true && vallData.couponInStock(coupon) == true
-				&& vallData.customerHasOne(coupon) == false) {
+		if (vallData.couponDateIsVallid(coupon) == true && 
+			vallData.couponInStock(coupon) == true && 
+			vallData.customerHasOne(coupon) == false) {
 			customerDao.UpdateCustomer_CouponTable(customer, coupon);
+			coupon=couponDao.getCoupon(coupon.getId());
 			coupon.setAmount(coupon.getAmount() - 1);
 			couponDao.updateCoupon(coupon);
 			System.out.println("coupon purchased");
@@ -58,6 +56,7 @@ public class CustomerFacade implements CouponClientFacade {
 	
 
 	public Collection<Coupon> getAllPurchasedCouponbyType(CouponType type) throws SQLException, Exception {
+		
 		return couponDao.getCouponsByType(type);
 
 	}
