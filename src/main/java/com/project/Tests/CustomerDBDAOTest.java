@@ -4,7 +4,9 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 import com.project.Beans.Coupon;
+import com.project.Beans.CouponType;
 import com.project.Beans.Customer;
+import com.project.Dao.Impl.CouponDBDAO;
 import com.project.Dao.Impl.CustomerDBDAO;
 import com.project.Dao.Impl.DataVallidation;
 import com.project.Facade.CustomerFacade;
@@ -18,8 +20,21 @@ public class CustomerDBDAOTest {
 		//allcust();
 		//login();
 		//purchasce();
-		allpurchasce();
+		//allpurchasce();
+		allpurchascebytype();
+	}
+
+	private static void allpurchascebytype() throws SQLException, Exception {
+		//Customer customer=new Customer();
+		CustomerDBDAO customerDBDAO=new CustomerDBDAO();
+		CouponDBDAO couponDBDAO=new CouponDBDAO();
+		CustomerFacade customerFacade = new CustomerFacade();
 		
+		
+		Customer customer=customerDBDAO.getCustomerByName("dvir");
+		//couponDBDAO.customer.setId(customer.getId());
+		System.out.println(customer);
+		customerFacade.getAllPurchasedCouponbyType(CouponType.FOOD, customer);
 	}
 
 	private static void allpurchasce() throws Exception {

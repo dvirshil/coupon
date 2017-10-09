@@ -55,14 +55,14 @@ public class CustomerFacade implements CouponClientFacade {
 	}
 	
 
-	public Collection<Coupon> getAllPurchasedCouponbyType(CouponType type) throws SQLException, Exception {
+	public Collection<Coupon> getAllPurchasedCouponbyType(CouponType type, Customer customer) throws SQLException, Exception {
 		
-		return couponDao.getCouponsByType(type);
+		return couponDao.getCustomerCouponsByType(type, customer);
 
 	}
 
-	public Collection<Coupon> getAllPurchasedCouponbyPrice(double price) throws SQLException, ParseException  {
-		return	couponDao.getCouponsByPrice(price);
+	public Collection<Coupon> getAllPurchasedCouponbyPrice(double price, Customer customer) throws Exception  {
+		return	couponDao.getCustomerCouponsByPrice(price, customer);
 
 	}
 

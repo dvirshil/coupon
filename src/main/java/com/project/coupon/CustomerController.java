@@ -66,21 +66,18 @@ public class CustomerController {
 	@Produces(MediaType.APPLICATION_JSON)
 	public Collection<Coupon> getAllPurchasedCouponsByType( @FormParam("couponType") String couponType,
 															@FormParam ("getCouponsByType") String username) throws Throwable {
-		customerFacade.customer.setCust_name(username);
-		CouponType type= CouponType.valueOf(couponType.toUpperCase());
+		customer=customerDBDAO.getCustomerByName(username);
+		return customerFacade.getAllPurchasedCouponbyType(CouponType.valueOf(couponType.toUpperCase()),customer);
 		
-		return customerFacade.getAllPurchasedCouponbyType(type);
-
 	}
 
 	@POST
 	@Path("/getAllPurchasedCouponsByPrice")
 	@Produces(MediaType.APPLICATION_JSON)
 	public Collection<Coupon> getAllPurchasedCouponsByPrice(@FormParam("price") double price,
-															@FormParam ("getCouponsByPrice") String username) throws SQLException, ParseException {
-
-		customerFacade.customer.setCust_name(username);
-	return  customerFacade.getAllPurchasedCouponbyPrice(price);
+															@FormParam ("getCouponsByPrice") String username) throws Exception {
+		customer=customerDBDAO.getCustomerByName(username);
+	return  customerFacade.getAllPurchasedCouponbyPrice(price, customer);
 	}
 
 }

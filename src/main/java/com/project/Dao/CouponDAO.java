@@ -7,6 +7,7 @@ import java.util.Collection;
 import com.project.Beans.Company;
 import com.project.Beans.Coupon;
 import com.project.Beans.CouponType;
+import com.project.Beans.Customer;
 
 public interface CouponDAO {
 
@@ -33,6 +34,9 @@ public interface CouponDAO {
 	Collection<Coupon> getCompanyCouponsByType(CouponType type, Long id) throws SQLException, Exception;
 
 	boolean isTitleExsist (String title) throws Exception;
-	
+
+	Collection<Coupon> getCustomerCouponsByType(CouponType type, Customer customer) throws SQLException, Exception;
+
+	Collection<Coupon> getCustomerCouponsByPrice(double price, Customer customer) throws SQLException, Exception;
 }
 

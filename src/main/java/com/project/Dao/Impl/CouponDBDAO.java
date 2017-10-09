@@ -25,6 +25,7 @@ public class CouponDBDAO implements CouponDAO {
 	Collection<Customer> customers=new ArrayList<>();
 	public CompanyDBDAO compDao;
 	Company company = new Company();
+	public Customer customer=new Customer();
 	
 	public CouponDBDAO() {
 		this.compDao = new CompanyDBDAO();
@@ -486,6 +487,85 @@ public class CouponDBDAO implements CouponDAO {
 		return company.getId();
 
 		
+	}
+	
+public Collection<Coupon> getCustomerCouponsByType(CouponType type, Customer customer) throws SQLException, Exception {
+		Collection<Coupon> coupons = new ArrayList<Coupon>();
+		Connection con = pool.getConnection();
+		try {
+			
+			String query = "SELECT * FROM Customer_Coupon Join Coupon ON Customer_Coupon.COUPON_ID = COUPON.ID WHERE "
+					+ "Customer_Coupon.CUST_ID = " + customer.getId() + " and COUPON.TYPE = '"+ type +"';";
+			Statement st;
+			st = con.createStatement();
+			ResultSet rs = st.executeQuery(query);
+			while (rs.next()) {
+				Coupon coupon=new Coupon();
+				String sdate=rs.getString("start_date");
+				String eDate=rs.getString("end_date");
+				String ct=rs.getString("type");
+
+				coupon.setId(rs.getLong("id"));	
+				coupon.setTitle(rs.getString("title"));
+				Date startDate = format.parse(sdate);
+				coupon.setStart_date(startDate);
+				Date endDate = format.parse(eDate);
+				coupon.setEnd_date(endDate);
+				coupon.setAmount(rs.getInt("Amount"));
+				coupon.setType(CouponType.valueOf(ct.toUpperCase()));
+				coupon.setMessage(rs.getString("message"));
+				coupon.setPrice(rs.getDouble("price"));
+				coupon.setImage(rs.getString("image"));
+				
+				coupons.add(coupon);
+			}
+			
+		} catch (Exception e) {
+			throw new Exception("Cannot select Coupons data from BD");
+		}
+		
+		pool.returnConnection(con);
+		return coupons;
+	}
+
+
+public Collection<Coupon> getCustomerCouponsByPrice(double price, Customer customer) throws SQLException, Exception {
+		Collection<Coupon> coupons = new ArrayList<Coupon>();
+		Connection con = pool.getConnection();
+		try {
+			
+			String query = "SELECT * FROM Customer_Coupon Join Coupon ON Customer_Coupon.COUPON_ID = COUPON.ID WHERE "
+					+ "Customer_Coupon.CUST_ID = " + customer.getId() + " and COUPON.PRICE <= '"+ price +"';";
+			Statement st;
+			st = con.createStatement();
+			ResultSet rs = st.executeQuery(query);
+			while (rs.next()) {
+				Coupon coupon=new Coupon();
+				String sdate=rs.getString("start_date");
+				String eDate=rs.getString("end_date");
+				String ct=rs.getString("type");
+
+				coupon.setId(rs.getLong("id"));	
+				coupon.setTitle(rs.getString("title"));
+				Date startDate = format.parse(sdate);
+				coupon.setStart_date(startDate);
+				Date endDate = format.parse(eDate);
+				coupon.setEnd_date(endDate);
+				coupon.setAmount(rs.getInt("Amount"));
+				coupon.setType(CouponType.valueOf(ct.toUpperCase()));
+				coupon.setMessage(rs.getString("message"));
+				coupon.setPrice(rs.getDouble("price"));
+				coupon.setImage(rs.getString("image"));
+				
+				coupons.add(coupon);
+			}
+			
+		} catch (Exception e) {
+			throw new Exception("Cannot select Coupons data from BD");
+		}
+		
+		pool.returnConnection(con);
+		return coupons;
 	}
 		
 	}

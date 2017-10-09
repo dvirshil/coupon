@@ -32,4 +32,5 @@ public interface CustomerDAO {
 	
 	Collection<Coupon> getCustomerCouponByCouponsId (Collection <Coupon> coupons ) throws SQLException, Exception;
 	
+	
 }

@@ -1,12 +1,10 @@
 package com.project.coupon;
 
 
-import java.io.IOException;
 import java.sql.SQLException;
 import java.util.Collection;
 
 import javax.inject.Singleton;
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
@@ -27,7 +25,6 @@ public class AdminController {
 	
 	@Context    
 	private HttpServletResponse response;
-	private HttpServletRequest request;
 	
 	 AdminFacade adminFacade=new AdminFacade();
 	 Company company=new Company();

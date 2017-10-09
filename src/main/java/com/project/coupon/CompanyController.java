@@ -124,7 +124,6 @@ public class CompanyController {
 								@FormParam ("getCouponById") String username) throws Exception {
 	companyFacade.company.setComp_name(username);
 	companyFacade.getCoupon(couponId);
-		System.out.println("get coupon by id - company.html");
 		
 	return coupon;
 	}
