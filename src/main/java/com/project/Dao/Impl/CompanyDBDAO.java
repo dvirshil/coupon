@@ -121,7 +121,7 @@ public class CompanyDBDAO implements CompanyDAO {
 	@Override
 	public Collection<Company> getAllCompanies() throws SQLException {
 		Connection con = pool.getConnection();
-		ArrayList<Company> allCompanies = new ArrayList<Company>();
+		Collection<Company> allCompanies = new ArrayList<Company>();
 		try {
 			String query = "SELECT * FROM Company";
 			Statement st;
@@ -134,7 +134,6 @@ public class CompanyDBDAO implements CompanyDAO {
 				company.setComp_name(rs.getString("comp_name"));
 				company.setPassword(rs.getString("Password"));
 				company.setEmail(rs.getString("email"));
-				
 				allCompanies.add(company);
 				
 				

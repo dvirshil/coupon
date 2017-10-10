@@ -1,6 +1,8 @@
 package com.project.Tests;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.Collection;
 
 import com.project.Beans.Company;
 import com.project.Beans.Coupon;
@@ -20,14 +22,23 @@ public class Test {
 		// getcomp();
 		// getAllComp();
 		//isTitleExsist();
-		couponDateIsVallid();
+		//couponDateIsVallid();
 		
 		// removeCompanyFacade();
 		// loginAdminFacade();
 		// createCompanyFacade();
 		// updatecustomeradminfacade();
 		// getcustomerbyidadminfacade();
+		getAllCompanyAF();
 
+	}
+
+	private static void getAllCompanyAF() throws SQLException {
+
+		AdminFacade af=new AdminFacade();
+		Collection<Company> comp=new ArrayList<>();
+		comp=af.getAllCompany();
+		System.out.println(comp);
 	}
 
 	private static void couponDateIsVallid() throws Exception, Throwable {

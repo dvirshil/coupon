@@ -154,7 +154,7 @@ public class CustomerDBDAO implements CustomerDAO {
 			st = con.createStatement();
 			ResultSet rs = st.executeQuery(query);
 			while (rs.next()) {
-
+				Customer customer=new Customer();
 				long custId = rs.getLong("id");
 				customer.setId(custId);
 				customer.setCust_name(rs.getString("cust_name"));
@@ -167,7 +167,6 @@ public class CustomerDBDAO implements CustomerDAO {
 			throw new SQLException("Cannot get all customers data from BD");
 		}
 		pool.returnConnection(con);
-		System.out.println(allCustomers);
 		return allCustomers;
 
 	}

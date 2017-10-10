@@ -128,7 +128,7 @@ public class AdminFacade implements CouponClientFacade {
 	}
 	
 	public Collection<Customer> getAllCustomer() throws SQLException{
-		ArrayList<Customer> customer=(ArrayList<Customer>) customerDBDAO.getAllCustomers();
+		Collection<Customer> customer= customerDBDAO.getAllCustomers();
 		return customer;
 		
 	}

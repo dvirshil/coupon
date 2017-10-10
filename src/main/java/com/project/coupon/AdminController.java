@@ -2,6 +2,7 @@ package com.project.coupon;
 
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Collection;
 
 import javax.inject.Singleton;
@@ -42,8 +43,7 @@ public class AdminController {
 		company.setComp_name(companyName);
 		company.setPassword(companyPassword);
 		company.setEmail(companyEmail);
-			adminFacade.createCompany(company);
-		System.out.println("company name :" + companyName);
+		adminFacade.createCompany(company);
 		response.sendRedirect("/coupon/admin.html");
 		return companyName;
 	}
@@ -102,17 +102,14 @@ public class AdminController {
 		return company;
 	}
 	
-	@GET
+	@POST
 	@Path("/getAllCompanies")
 	@Produces(MediaType.APPLICATION_JSON)
 	public Collection<Company> getAllCompanies() throws Exception{
 		
-		Collection<Company> companies = null;
-		try {
-			adminFacade.getAllCompany();
-		} catch (Exception e) {
-			throw new Exception("FAILED GET ALL COMPANIES");
-		}
+		Collection<Company> companies = new ArrayList<Company>();
+		
+		companies=adminFacade.getAllCompany();
 		return companies;
 	}
 	
@@ -171,15 +168,14 @@ public class AdminController {
 		return customer;
 	}
 	
-	@GET
+	@POST
 	@Path("/getAllCustomers")
 	@Produces(MediaType.APPLICATION_JSON)
 	public Collection<Customer> getAllCustomers() throws Exception{
 		
-		Collection<Customer> customers = null;
-		adminFacade.getAllCustomer();
+		Collection<Customer> customers = new ArrayList<Customer>();
+		customers=adminFacade.getAllCustomer();
 		
-		System.out.println("get all customers - admin.html");
 				return customers;
 	}
 }

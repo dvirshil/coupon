@@ -175,10 +175,13 @@
 		</div>
 
 		<br> <br>
-		<!-- -----------------TODO------------------- -->
-		<button formaction="webapi/admin/getAllCompanies" type="submit" >Get All Companies</button>
-		<br> <br>
-		
+		<div style="text-align: center;">
+		<form action="webapi/admin/getAllCompanies" method="post" name="myForm">
+		<button type="submit" id="getAllCompanies" 	data-toggle="modal" data-target="#myModal9" >Get All Companies</button>
+		</form>
+
+		<br>
+				
 		<button type="button"  data-toggle="modal" data-target="#myModal5">Create Customer</button>
 		<!-- Modal -->
 		<div class="modal fade" id="myModal5" role="dialog">
@@ -290,8 +293,11 @@
 		<br> <br>
 		
 		<!-- -----------------TODO------------------- -->
-		<div>
-		<button type="submit" formmethod="get" formaction="webpai/admin/getAllCustomers">Get All Customer</button>
+			<div style="text-align: center;">
+		<form action="webapi/admin/getAllCustomers" method="post" name="myForm">
+		<button type="submit" id="getAllCustomers" 	data-toggle="modal" data-target="#myModal10" >Get All Customers</button>
+		</form>
+	
 		<br> <br>
 	</div>
 	</div>
